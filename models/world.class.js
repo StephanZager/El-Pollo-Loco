@@ -5,24 +5,28 @@ class World {
         new Chicken(),
         new Chicken(),
     ];
+    canvas;
     ctx;
 
 
-    constructor(canvas){
+    constructor(canvas) {
         this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
         this.draw();
     }
 
 
 
-    draw() { 
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y,this.character.width, this.character.height)
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
+        this.enemies.forEach(enemy => {
+            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+        });
 
-       for (let i = 0; i < this.enemies.length; i++) {
-        const chicken = this.enemies[i];
-
-        this.ctx.drawImage(chicken.img, chicken.x, chicken.y, chicken.width, chicken.height);
-        
-       }
-            }
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
+    }
 }
