@@ -6,8 +6,7 @@ class World {
         new Chicken(),
     ];
     clouds = [
-        new Clouds(),
-        new Clouds()
+        new Clouds()        
     ];
     backgroundObjects = [
         new BackgroundObject('img/5_background/layers/air.png', 0),
