@@ -20,12 +20,12 @@ class World {
         this.character.world = this;
     }
 
-    checkCollisions(){
+    checkCollisions() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy)=>{
-              if(this.character.isColliding(enemy)){
-                console.log('s',enemy);
-              }  
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit();
+                }
             });
         }, 100);
     }
