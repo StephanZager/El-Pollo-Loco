@@ -1,5 +1,5 @@
 class Bar extends MovableObject {
-    height = 60;
+    height = 50;
     width = 200;
     x = 30;
     y = 1;
@@ -22,16 +22,17 @@ class Bar extends MovableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
     ];
 
-    constructor() {
-        super().loadImage('img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png');
+    constructor(imagePath,x, y) {
+        super().loadImage(imagePath);
+        this.y = y;
         
-        this.loadImages(this.IMAGES_HEALTH_BAR);
-        this.loadImages(this.IMAGES_COIN_BAR);
     }
 
-    aktualiesierungsHealtBart(){
-        if(this.hit() <= 80){
-            this.loadImage('img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png')
-        }
+    aktualiesierungsHealtBart() {
+
+        setInterval(() => {
+
+        }, 100);
+
     }
 }
