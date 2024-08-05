@@ -27,9 +27,10 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_ENGREY[0]);
         this.loadImages(this.IMAGES_ENGREY);  
-        this.speed = 0.15 + Math.random() * 0.25;              
+        this.loadImages(this.IMAGES_WALK);
+        this.speed = 1 + Math.random() * 0.25;              
         this.animate();
-        this.playAnimation(this.IMAGES_ENGREY);
+        
         
     }
 
@@ -41,12 +42,12 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALK);
-        }, 200);
+        }, 100);
 
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_ENGREY);
-        }, 200);
+        }, 900);
 
     }
 }
