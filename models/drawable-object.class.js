@@ -1,9 +1,9 @@
 class DrawableObject {
 
     x = 120;
-    y = 280;    
+    y = 280;
     height = 150;
-    width = 100;    
+    width = 100;
     img;
     imageCache = {};
     currentImage = 0;
@@ -36,6 +36,14 @@ class DrawableObject {
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+
+            const offsetX = this.offset.left - this.offset.right;
+            const offsetY = this.offset.top - this.offset.bottom;
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + offsetX, this.y + offsetY, this.width, this.height);
             ctx.stroke();
         }
     }
