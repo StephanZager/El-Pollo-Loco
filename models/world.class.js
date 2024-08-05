@@ -1,11 +1,11 @@
 class World {
     character = new Character();
     level = level1;
-
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -33,19 +33,17 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
         this.addObjectToMap(this.level.backgroundObjects);
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.coin);
         this.addObjectToMap(this.level.bottle);
         this.ctx.translate(-this.camera_x, 0);
-        this.addObjectToMap(this.level.bar);        
+        this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
-
 
         let self = this;
         requestAnimationFrame(function () {

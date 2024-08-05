@@ -54,8 +54,5 @@ const level1 = new Level(
         new Bottle('img/6_salsa_bottle/salsa_bottle.png', 100, 40),
         new Bottle('img/6_salsa_bottle/salsa_bottle.png', 100, 40),
     ],
-    [
-        new Bar('img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',100,1),
-        new Bar('img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png', 100,40),
-    ]
+ 
 );
