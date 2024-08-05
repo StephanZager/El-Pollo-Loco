@@ -31,19 +31,21 @@ class DrawableObject {
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
 
-            const offsetX = this.offset.left - this.offset.right;
-            const offsetY = this.offset.top - this.offset.bottom;
+            const offsetX = this.offset.left;
+            const offsetY = this.offset.top;
+            const offsetWidth = this.width - this.offset.left - this.offset.right;
+            const offsetHeight = this.height - this.offset.top - this.offset.bottom;
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.x + offsetX, this.y + offsetY, this.width, this.height);
+            ctx.rect(this.x + offsetX, this.y + offsetY, offsetWidth, offsetHeight);
             ctx.stroke();
         }
     }
