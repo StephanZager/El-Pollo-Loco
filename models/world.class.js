@@ -8,6 +8,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     coinBar = new StatusCoinBar();
+    bottleBar = new StatusBottleBar();
     
     throwableObject = [];
     
@@ -30,20 +31,27 @@ class World {
             this.checkCollision();
             this.checkThrowObject();
             this.checkCoinObject();
+            this.checkBottleObject();
 
         }, 100);
     }
 
+    checkBottleObject() {
+        this.level.bottle.forEach((bottle, index) => {           
+            if (this.character.isColliding(bottle)) {
+                this.bottleBar.collectBottle(index,this.level.bottle);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
+            }
+        });
+    }
+
     checkCoinObject() {
-        this.level.coin.forEach((coin, index) => {
-           
+        this.level.coin.forEach((coin, index) => {           
             if (this.character.isColliding(coin)) {
                 this.coinBar.collectCoin(index,this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
     }
-
-
+    
     checkThrowObject() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -71,6 +79,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);

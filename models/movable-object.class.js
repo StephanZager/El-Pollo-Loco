@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+    bottles = 0;
     coins = 0;
     speed = 0.1;
     otherDirection = false;
