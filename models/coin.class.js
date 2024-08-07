@@ -6,10 +6,10 @@ class Coin extends MovableObject {
         this.x = 150 + Math.random() * 1900;
         this.y = 150 + Math.random() * 120;
         this.offset = {
-            top: 100,
-            bottom: 100,
-            left: 100,
-            right: 100,
+            top: 30,
+            bottom: 30,
+            left: 30,
+            right: 30,
         }
     }
 }

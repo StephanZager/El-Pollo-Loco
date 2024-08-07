@@ -1,4 +1,5 @@
 class World {
+    
     character = new Character();
     level = level1;
     canvas;
@@ -7,6 +8,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     coinBar = new StatusCoinBar();
+    
     throwableObject = [];
     
 
@@ -25,31 +27,35 @@ class World {
 
     run() {
         setInterval(() => {
-            
-
             this.checkCollision();
             this.checkThrowObject();
+            this.checkCoinObject();
 
-           //this.level.coins.forEach((coin) => {
-            //    if (this.character.isColliding(coin)) {
-            //        this.coinBar.collectCoin();                    
-            //    }
-            //});
         }, 100);
     }
 
-    checkThrowObject(){
-        if(this.keyboard.D){
+    checkCoinObject() {
+        this.level.coin.forEach((coin, index) => {
+           
+            if (this.character.isColliding(coin)) {
+                this.coinBar.collectCoin(index,this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
+            }
+        });
+    }
+
+
+    checkThrowObject() {
+        if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObject.push(bottle);
         }
     }
 
-    checkCollision(){
+    checkCollision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.statusBar.setPercentage(this.character.energy);                
             }
         });
     }

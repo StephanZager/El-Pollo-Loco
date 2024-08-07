@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-
+    coins = 0;
     speed = 0.1;
     otherDirection = false;
     speedY = 0;
@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject ) {
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 180
