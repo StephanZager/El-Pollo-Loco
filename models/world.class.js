@@ -1,5 +1,5 @@
 class World {
-
+    
     character = new Character();
     level = level1;
     canvas;
@@ -67,8 +67,11 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     console.log("bottle hit enemy"); 
-                    bottle.bottleSplash();
-                    
+                    bottle.bottleSplash();                    
+                    if (enemy instanceof Endboss) {
+                        enemy.hit();
+                        console.log("endboss hit");
+                    }
                 }
             });
         });
