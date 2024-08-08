@@ -66,9 +66,9 @@ class World {
         this.throwableObject.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
-                    console.log("bottle hit enemy");                    
-                    this.throwableObject.splice(this.throwableObject.indexOf(bottle), 1);
-                    bottle.BottleHit();
+                    console.log("bottle hit enemy"); 
+                    bottle.bottleSplash();
+                    
                 }
             });
         });
