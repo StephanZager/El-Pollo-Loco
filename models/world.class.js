@@ -1,5 +1,5 @@
 class World {
-    
+
     character = new Character();
     level = level1;
     canvas;
@@ -9,9 +9,8 @@ class World {
     statusBar = new StatusBar();
     coinBar = new StatusCoinBar();
     bottleBar = new StatusBottleBar();
-    
     throwableObject = [];
-    
+
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -33,37 +32,51 @@ class World {
             this.checkCoinObject();
             this.checkBottleObject();
 
+
         }, 100);
     }
 
-    checkBottleObject() {
-        this.level.bottle.forEach((bottle, index) => {           
-            if (this.character.isColliding(bottle)) {
-                this.bottleBar.collectBottle(index,this.level.bottle);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
+
+
+    checkCoinObject() {
+        this.level.coin.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.coinBar.collectCoin(index, this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
     }
 
-    checkCoinObject() {
-        this.level.coin.forEach((coin, index) => {           
-            if (this.character.isColliding(coin)) {
-                this.coinBar.collectCoin(index,this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
+    checkBottleObject() {
+        this.level.bottle.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.bottleBar.collectBottle(index, this.level.bottle);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
     }
-    
+
     checkThrowObject() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.bottleBar.bottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObject.push(bottle);
+            this.bottleBar.setPercentage(this.bottleBar.bottles - 1); // bootle bar ist die classe dann kann ich da auch hin ;) weil oben ich das definiere
         }
     }
 
     checkCollision() {
+        this.throwableObject.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    console.log("bottle hit enemy");                    
+                    this.throwableObject.splice(this.throwableObject.indexOf(bottle), 1);
+                    bottle.BottleHit();
+                }
+            });
+        });
+    
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);                
+                this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
