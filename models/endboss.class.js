@@ -49,29 +49,39 @@ class Endboss extends MovableObject {
 
     animate() {
         console.log('animate', this.energy);
-        setInterval(() => {
+        let moveInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {
+        let walkAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_WALK);
         }, 100);
 
-        setInterval(() => {
+        let engreyAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ENGREY);
-        }, 900);       
+        }, 900);
+        
+        let hurtAnimationInterval = setInterval(() => {
+            if (this.isHurt()){
+            this.playAnimation(this.IMAGES_HURT);
+            }
+        }, 100);
 
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.speed = 0;
-                console.log('endboss dead');
+                this.playAnimationOnce(this.IMAGES_DEAD);
+                this.speed = 0; 
+                setInterval(() => {
+                    this.y += 10;  
+                }, 50);
                 
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                console.log('endboss hurt');                
-            }
-        }, 50);
+                
+                clearInterval(moveInterval);
+                clearInterval(walkAnimationInterval);
+                clearInterval(engreyAnimationInterval);
+                clearInterval(hurtAnimationInterval);                       
+            } 
+        }, 400);
         
 
     }
