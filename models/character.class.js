@@ -55,9 +55,9 @@ class Character extends MovableObject {
         this.animate();
         this.offset = {
             top: 120,
-            bottom: 30,
-            left: 40,
-            right: 30,
+            bottom: 0,
+            left: 10,
+            right: 10,
         }
     }
 
@@ -84,7 +84,7 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_Dead);
-                this.y -= 5;
+                this.y -= 5;                
                 this.y += 10;
                 this.speed = 0;
                 

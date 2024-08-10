@@ -1,5 +1,5 @@
 class World {
-    
+
     character = new Character();
     level = level1;
     canvas;
@@ -33,6 +33,7 @@ class World {
             this.checkBottleObject();
 
 
+
         }, 100);
     }
 
@@ -63,19 +64,32 @@ class World {
     }
 
     checkCollision() {
+
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
+                if (enemy instanceof Chicken) {
+                    enemy.hit();
+                    this.character.noHit();                    
+                    this.character.speedY = 10;                     
+                }
+            }
+        });
+
+
+
+
+
         this.throwableObject.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
-                    console.log("bottle hit enemy"); 
-                    bottle.bottleSplash();                    
+                    bottle.bottleSplash();
                     if (enemy instanceof Endboss) {
                         enemy.hit();
-                        console.log("endboss hit");
                     }
                 }
             });
         });
-    
+
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();

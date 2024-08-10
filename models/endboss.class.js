@@ -72,16 +72,15 @@ class Endboss extends MovableObject {
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.speed = 0; 
                 setInterval(() => {
-                    this.y += 10;  
-                }, 50);
-                
+                    this.y += 5;  
+                }, 50);              
                 
                 clearInterval(moveInterval);
                 clearInterval(walkAnimationInterval);
                 clearInterval(engreyAnimationInterval);
                 clearInterval(hurtAnimationInterval);                       
             } 
-        }, 400);
+        }, 500);
         
 
     }
