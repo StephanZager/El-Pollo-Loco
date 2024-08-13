@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     isNoHit = false;
+    idle = false;
     offset = {
         top: 0,
         bottom: 0,
@@ -43,10 +44,10 @@ class MovableObject extends DrawableObject {
 
     isCollidingJumping(mo) {
         return (
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && // Bottom of this is below top of mo
-            this.y + this.height - this.offset.bottom < mo.y + mo.offset.top + mo.height && // Bottom of this is above bottom of mo
-            this.x + this.width - this.offset.right > mo.x + mo.offset.left && // Right of this is right of left of mo
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right // Left of this is left of right of mo
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.y + this.height - this.offset.bottom < mo.y + mo.offset.top + mo.height &&
+            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right
         );
     }
 
@@ -81,22 +82,22 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-    noHit(){
+    noHit() {
         this.isNoHit = true;
         setTimeout(() => {
             this.isNoHit = false;
-        }, 300);        
+        }, 300);
     }
 
     hit() {
-        if(!this.isNoHit){
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if (!this.isNoHit) {
+            this.energy -= 5;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
+            }
         }
-    }
     }
 
     isHurt() {
@@ -109,9 +110,4 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    //fallingHit(){
-    //    if(this.character.y > 180){
-    //        this.level.enemies.chicken.speed.hit();
-    //    }
-    //}
 }

@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     canvas;
@@ -69,23 +68,17 @@ class World {
             if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
                 if (enemy instanceof Chicken) {
                     enemy.hit();
-                    this.character.noHit();                    
-                    this.character.speedY = 10;                     
+                    this.character.noHit();
+                    this.character.speedY = 5;
                 }
             }
         });
-
-
-
-
 
         this.throwableObject.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     bottle.bottleSplash();
-                    if (enemy instanceof Endboss) {
-                        enemy.hit();
-                    }
+                    enemy.hit();
                 }
             });
         });
@@ -111,8 +104,8 @@ class World {
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
-        this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
+        this.addToMap(this.character);
         this.addObjectToMap(this.throwableObject);
         this.ctx.translate(-this.camera_x, 0);
 
