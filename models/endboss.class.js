@@ -62,7 +62,7 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        this.setStoppableInterval(() => this.endbossWalkImages(), 100);
+        this.setStoppableInterval(() => this.endbossWalkImages(), 150);
         this.setStoppableInterval(() => this.endbossMove(), 1000 / 60,);
         this.setStoppableInterval(() => this.endbossEngreyImages(), 900);
         this.setStoppableInterval(() => this.endbossHurt(), 100);
@@ -89,14 +89,16 @@ class Endboss extends MovableObject {
     }
 
     endbossAttack() {
+        
         this.setStoppableInterval(() => {
+            this.clearAllIntervals();
             this.playAnimation(this.IMAGES_ATTACK);
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
 
-        },200);
+        },100);
 
     }
 
@@ -108,10 +110,10 @@ class Endboss extends MovableObject {
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
-            clearInterval(this.intervalIds[4]);
+            clearInterval(this.intervalIds[5]);
             setInterval(() => {
                 this.y += 5;
-            }, 20);
+            }, 50);
         }
 
     }
