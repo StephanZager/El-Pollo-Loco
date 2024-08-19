@@ -5,6 +5,12 @@ class Endboss extends MovableObject {
     y = 50;
     x = 2000;
     hadFirtstContact = false;
+    offset = {
+        top: 50,
+        bottom: 0,
+        left: 35,
+        right: 10,
+    }
 
 
     IMAGES_WALK = [
@@ -84,6 +90,7 @@ class Endboss extends MovableObject {
 
     endbossHurt() {
         if (this.isHurt()) {
+            
             this.playAnimation(this.IMAGES_HURT);
         }
     }
@@ -97,7 +104,6 @@ class Endboss extends MovableObject {
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
-
         },100);
 
     }
