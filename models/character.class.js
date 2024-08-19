@@ -88,11 +88,7 @@ class Character extends MovableObject {
     }
 
     animate() {
-
-
-        // baustelle
-       setInterval(() => {           
-
+        setInterval(() => {
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE) {
                 this.playAnimation(this.IMAGES_IDEL);
                 this.idle = true;
@@ -104,7 +100,7 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_IDEL_LONG);
                 }, 10000);
             }
-            
+
         }, 600);
 
 
@@ -127,7 +123,7 @@ class Character extends MovableObject {
                 this.jump();
                 this.idle = false;
             }
-            
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 

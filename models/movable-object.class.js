@@ -9,6 +9,8 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     isNoHit = false;
     idle = false;
+    intervalIds = [];
+    
     offset = {
         top: 0,
         bottom: 0,
@@ -77,6 +79,15 @@ class MovableObject extends DrawableObject {
         }
 
     }
+
+    setStoppableInterval(fn, time) {
+        let intervalId = setInterval(fn, time);
+        this.intervalIds.push(intervalId);
+    };
+
+    clearAllIntervals() {
+        this.intervalIds.forEach(clearInterval);
+    };
 
     jump() {
         this.speedY = 30;

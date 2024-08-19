@@ -1,9 +1,11 @@
 class Endboss extends MovableObject {
-    energy = 100;
+    energy = 20;
     height = 400;
     width = 300;
     y = 50;
     x = 2000;
+    hadFirtstContact = false;
+
 
     IMAGES_WALK = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -35,55 +37,82 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/4_hurt/G23.png',
     ];
 
+    IMAGES_ATTACK = [
+        'img/4_enemie_boss_chicken/3_attack/G13.png',
+        'img/4_enemie_boss_chicken/3_attack/G14.png',
+        'img/4_enemie_boss_chicken/3_attack/G15.png',
+        'img/4_enemie_boss_chicken/3_attack/G16.png',
+        'img/4_enemie_boss_chicken/3_attack/G17.png',
+        'img/4_enemie_boss_chicken/3_attack/G18.png',
+        'img/4_enemie_boss_chicken/3_attack/G19.png',
+        'img/4_enemie_boss_chicken/3_attack/G20.png',
+    ];
+
     constructor() {
         super().loadImage(this.IMAGES_ENGREY[0]);
         this.loadImages(this.IMAGES_ENGREY);
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_ATTACK);
         this.speed = 1 + Math.random() * 0.25;
         this.animate();
-
+        console.log(this.intervalIds);
 
     }
 
     animate() {
-        console.log('animate', this.energy);
-        let moveInterval = setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+        this.setStoppableInterval(() => this.endbossWalkImages(), 100);
+        this.setStoppableInterval(() => this.endbossMove(), 1000 / 60,);
+        this.setStoppableInterval(() => this.endbossEngreyImages(), 900);
+        this.setStoppableInterval(() => this.endbossHurt(), 100);
+        this.setStoppableInterval(() => this.endbossDead(), 500);
+       
+    }
 
-        let walkAnimationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_WALK);
-        }, 100);
+    endbossMove() {
+        this.moveLeft();
+    }
 
-        let engreyAnimationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_ENGREY);
-        }, 900);
-        
-        let hurtAnimationInterval = setInterval(() => {
-            if (this.isHurt()){
+    endbossWalkImages() {
+        this.playAnimation(this.IMAGES_WALK);
+    }
+
+    endbossEngreyImages() {
+        this.playAnimation(this.IMAGES_ENGREY);
+    }
+
+    endbossHurt() {
+        if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-            }
-        }, 100);
+        }
+    }
 
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimationOnce(this.IMAGES_DEAD);
-                this.speed = 0; 
-                setInterval(() => {
-                    this.y += 5;  
-                }, 50);              
-                
-                clearInterval(moveInterval);
-                clearInterval(walkAnimationInterval);
-                clearInterval(engreyAnimationInterval);
-                clearInterval(hurtAnimationInterval);                       
-            } 
-        }, 500);
-        
+    endbossAttack() {
+        this.setStoppableInterval(() => {
+            this.playAnimation(this.IMAGES_ATTACK);
+            clearInterval(this.intervalIds[0]);
+            clearInterval(this.intervalIds[1]);
+            clearInterval(this.intervalIds[2]);
+            clearInterval(this.intervalIds[3]);
+
+        },200);
 
     }
 
+    endbossDead() {
+        if (this.isDead()) {
+            this.playAnimationOnce(this.IMAGES_DEAD);
+            this.speed = 0;
+            clearInterval(this.intervalIds[0]);
+            clearInterval(this.intervalIds[1]);
+            clearInterval(this.intervalIds[2]);
+            clearInterval(this.intervalIds[3]);
+            clearInterval(this.intervalIds[4]);
+            setInterval(() => {
+                this.y += 5;
+            }, 20);
+        }
 
+    }
 }

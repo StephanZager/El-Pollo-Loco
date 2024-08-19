@@ -11,6 +11,7 @@ class World {
     throwableObject = [];
 
 
+
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -24,15 +25,14 @@ class World {
         this.character.world = this;
     }
 
+
+
     run() {
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObject();
             this.checkCoinObject();
             this.checkBottleObject();
-
-
-
         }, 100);
     }
 
@@ -65,6 +65,23 @@ class World {
     checkCollision() {
 
         this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                if (enemy instanceof Endboss) {
+                    enemy.endbossAttack();
+                    enemy.hadFirtstContact = true;
+                    enemy.speed = 0;
+                }
+            } else {
+                if (enemy instanceof Endboss && enemy.hadFirtstContact) {
+                    enemy.clearAllIntervals();
+                    enemy.animate();
+                    enemy.hadFirtstContact = false;
+                    enemy.speed = 1 + Math.random() * 0.25;
+                }
+            }
+        });
+
+        this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
                 if (enemy instanceof Chicken) {
                     enemy.hit();
@@ -74,11 +91,12 @@ class World {
             }
         });
 
-        this.throwableObject.forEach((bottle) => {
-            this.level.enemies.forEach((enemy) => {
+        this.throwableObject.forEach((bottle, bottleIndex) => {
+            this.level.enemies.forEach((enemy, index) => {
                 if (bottle.isColliding(enemy)) {
-                    bottle.bottleSplash();
                     enemy.hit();
+                    bottle.bottleSplash();
+                    this.throwableObject.splice(bottleIndex, 1);
                 }
             });
         });
