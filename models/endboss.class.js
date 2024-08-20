@@ -110,6 +110,7 @@ class Endboss extends MovableObject {
 
     endbossDead() {
         if (this.isDead()) {
+            
             this.playAnimationOnce(this.IMAGES_DEAD);
             this.speed = 0;
             clearInterval(this.intervalIds[0]);

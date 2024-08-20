@@ -95,8 +95,12 @@ class World {
             this.level.enemies.forEach((enemy, index) => {
                 if (bottle.isColliding(enemy)) {
                     enemy.hit();
+                    enemy.noHit();
                     bottle.bottleSplash();
-                    this.throwableObject.splice(bottleIndex, 1);
+                    setTimeout(() => {
+                        this.throwableObject.splice(bottleIndex, 1);
+                    }, 200);
+
                 }
             });
         });

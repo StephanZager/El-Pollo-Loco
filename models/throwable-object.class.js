@@ -42,12 +42,11 @@ class ThrowableObject extends MovableObject {
     };
 
     bottleSplash() {
-        setInterval(() => {
-            this.playAnimationOnce(this.IMAGES_SPLASH);
-        }, 100);
-        
         clearInterval(this.intervalIds[0]);
-
+        this.speedY = 0;
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_SPLASH);
+        }, 50);          
     }
 
     bottleRotation(){
