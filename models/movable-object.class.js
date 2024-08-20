@@ -121,4 +121,13 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    stopFalling(){
+        setTimeout(() => {
+            this.speedY = 0;
+            this.acceleration = 0;
+            this.clearAllIntervals();
+        }, 50);
+       
+    }
+
 }

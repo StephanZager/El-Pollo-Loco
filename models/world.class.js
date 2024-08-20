@@ -99,8 +99,7 @@ class World {
                     bottle.bottleSplash();
                     setTimeout(() => {
                         this.throwableObject.splice(bottleIndex, 1);
-                    }, 200);
-
+                    }, 300);
                 }
             });
         });
