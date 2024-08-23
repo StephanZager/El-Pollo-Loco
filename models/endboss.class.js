@@ -5,6 +5,8 @@ class Endboss extends MovableObject {
     y = 50;
     x = 2000;
     hadFirtstContact = false;
+    bossAnimationFisrstContact = false;
+    speed = 2 + Math.random() * 0.25;
     offset = {
         top: 50,
         bottom: 0,
@@ -61,20 +63,37 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
-        this.speed = 1 + Math.random() * 0.25;
+
         this.animate();
         console.log(this.intervalIds);
 
     }
 
     animate() {
-        this.setStoppableInterval(() => this.endbossWalkImages(), 150);
-        this.setStoppableInterval(() => this.endbossMove(), 1000 / 60,);
-        this.setStoppableInterval(() => this.endbossEngreyImages(), 900);
+        let i = 0;
+        let firstContact = this.setStoppableInterval(() => {
+            this.firstContact();
+            if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
+                if (i < this.IMAGES_ENGREY.length) {
+                    this.endbossEngreyImages();
+                    i++;
+                } else {
+                    clearInterval(firstContact);
+                    this.bossAnimationFisrstContact = true;
+                    this.setStoppableInterval(() => this.endbossWalkImages(), 150);
+                    this.setStoppableInterval(() => this.endbossMove(), 1000 / 60);
+                }
+            }
+        }, 250);
+
+
+       
         this.setStoppableInterval(() => this.endbossHurt(), 100);
         this.setStoppableInterval(() => this.endbossDead(), 500);
-       
     }
+
+
+
 
     endbossMove() {
         this.moveLeft();
@@ -90,38 +109,43 @@ class Endboss extends MovableObject {
 
     endbossHurt() {
         if (this.isHurt()) {
-            
+
             this.playAnimation(this.IMAGES_HURT);
         }
     }
 
     endbossAttack() {
-        
         this.setStoppableInterval(() => {
             this.clearAllIntervals();
             this.playAnimation(this.IMAGES_ATTACK);
-            clearInterval(this.intervalIds[0]);
-            clearInterval(this.intervalIds[1]);
-            clearInterval(this.intervalIds[2]);
-            clearInterval(this.intervalIds[3]);
-        },100);
+            //clearInterval(this.intervalIds[0]);
+            //clearInterval(this.intervalIds[1]);
+            //clearInterval(this.intervalIds[2]);
+           // clearInterval(this.intervalIds[3]);
 
+        }, 100);
     }
 
     endbossDead() {
         if (this.isDead()) {
-            
-            this.playAnimationOnce(this.IMAGES_DEAD);
+            this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
-            clearInterval(this.intervalIds[5]);
+            clearInterval(this.intervalIds[4]);
+            clearInterval(this.intervalIds[6]);
             setInterval(() => {
-                this.y += 5;
+                this.y += 10;
             }, 50);
         }
+    }
 
+    firstContact() {
+        if (world.character.x > 1500 && !this.hadFirstContact) {
+            this.hadFirstContact = true;
+            console.log('first contact');
+        }
     }
 }

@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    boss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -25,8 +26,6 @@ class World {
         this.character.world = this;
     }
 
-
-
     run() {
         setInterval(() => {
             this.checkCollision();
@@ -35,8 +34,6 @@ class World {
             this.checkBottleObject();
         }, 100);
     }
-
-
 
     checkCoinObject() {
         this.level.coin.forEach((coin, index) => {
