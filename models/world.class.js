@@ -73,7 +73,7 @@ class World {
                     enemy.clearAllIntervals();
                     enemy.animate();
                     enemy.hadFirtstContact = false;
-                    enemy.speed = 1 + Math.random() * 0.25;
+                    enemy.speed = 2 + Math.random() * 0.25;
                 }
             }
         });

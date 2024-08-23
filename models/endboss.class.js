@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
     x = 2000;
     hadFirtstContact = false;
     bossAnimationFisrstContact = false;
+    engreyAnimationPlayed = false;
     speed = 2 + Math.random() * 0.25;
     offset = {
         top: 50,
@@ -74,10 +75,11 @@ class Endboss extends MovableObject {
         let firstContact = this.setStoppableInterval(() => {
             this.firstContact();
             if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
-                if (i < this.IMAGES_ENGREY.length) {
+                if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {
                     this.endbossEngreyImages();
                     i++;
                 } else {
+                    this.engreyAnimationPlayed = true; // Flagge setzen
                     clearInterval(firstContact);
                     this.bossAnimationFisrstContact = true;
                     this.setStoppableInterval(() => this.endbossWalkImages(), 150);
@@ -87,7 +89,6 @@ class Endboss extends MovableObject {
         }, 250);
 
 
-       
         this.setStoppableInterval(() => this.endbossHurt(), 100);
         this.setStoppableInterval(() => this.endbossDead(), 500);
     }
@@ -117,19 +118,22 @@ class Endboss extends MovableObject {
     endbossAttack() {
         this.setStoppableInterval(() => {
             this.clearAllIntervals();
+            this.bossAnimationFisrstContact = false;
             this.playAnimation(this.IMAGES_ATTACK);
-            //clearInterval(this.intervalIds[0]);
-            //clearInterval(this.intervalIds[1]);
-            //clearInterval(this.intervalIds[2]);
-           // clearInterval(this.intervalIds[3]);
+            clearInterval(this.intervalIds[0]);
+            clearInterval(this.intervalIds[1]);
+            clearInterval(this.intervalIds[2]);
+            clearInterval(this.intervalIds[3]);
 
         }, 100);
+        
     }
 
     endbossDead() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
+
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
