@@ -79,7 +79,7 @@ class Endboss extends MovableObject {
                     this.endbossEngreyImages();
                     i++;
                 } else {
-                    this.engreyAnimationPlayed = true; // Flagge setzen
+                    this.engreyAnimationPlayed = true;
                     clearInterval(firstContact);
                     this.bossAnimationFisrstContact = true;
                     this.setStoppableInterval(() => this.endbossWalkImages(), 150);
@@ -110,8 +110,8 @@ class Endboss extends MovableObject {
 
     endbossHurt() {
         if (this.isHurt()) {
-
             this.playAnimation(this.IMAGES_HURT);
+            this.clearIntervalByFunction(this.endbossWalkImages);
         }
     }
 
@@ -120,26 +120,22 @@ class Endboss extends MovableObject {
             this.clearAllIntervals();
             this.bossAnimationFisrstContact = false;
             this.playAnimation(this.IMAGES_ATTACK);
-            clearInterval(this.intervalIds[0]);
-            clearInterval(this.intervalIds[1]);
-            clearInterval(this.intervalIds[2]);
-            clearInterval(this.intervalIds[3]);
 
-        }, 100);
-        
+        }, 150);
+
     }
 
     endbossDead() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
-
+               
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
             clearInterval(this.intervalIds[4]);
-            clearInterval(this.intervalIds[6]);
+            
             setInterval(() => {
                 this.y += 10;
             }, 50);
