@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
     isNoHit = false;
     idle = false;
     intervalIds = [];
+    currentImage = 0;
 
     offset = {
         top: 0, 
@@ -24,7 +25,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
+        }, 1000/25);
     }
 
     isAboveGround() {
@@ -90,7 +91,7 @@ class MovableObject extends DrawableObject {
     };
 
     jump() {
-        this.speedY = 30;
+        this.speedY = 30; 
     }
 
     noHit() {
