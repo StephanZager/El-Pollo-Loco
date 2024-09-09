@@ -1,4 +1,5 @@
 class Endboss extends MovableObject {
+    world;
     energy = 20;
     height = 400;
     width = 300;
@@ -71,6 +72,12 @@ class Endboss extends MovableObject {
     }
 
     animate() {
+        this.handleFirstContact();
+        this.setStoppableInterval(() => this.endbossHurt(), 100);
+        this.setStoppableInterval(() => this.endbossDead(), 500);
+    }
+
+    handleFirstContact() {
         let i = 0;
         let firstContact = this.setStoppableInterval(() => {
             this.firstContact();
@@ -87,14 +94,7 @@ class Endboss extends MovableObject {
                 }
             }
         }, 250);
-
-
-        this.setStoppableInterval(() => this.endbossHurt(), 100);
-        this.setStoppableInterval(() => this.endbossDead(), 500);
     }
-
-
-
 
     endbossMove() {
         this.moveLeft();
@@ -129,13 +129,11 @@ class Endboss extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
-               
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
             clearInterval(this.intervalIds[4]);
-            
             setInterval(() => {
                 this.y += 10;
             }, 50);
@@ -145,7 +143,6 @@ class Endboss extends MovableObject {
     firstContact() {
         if (world.character.x > 1500 && !this.hadFirstContact) {
             this.hadFirstContact = true;
-            console.log('first contact');
         }
     }
 }
