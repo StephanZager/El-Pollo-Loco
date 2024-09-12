@@ -111,7 +111,9 @@ class Endboss extends MovableObject {
     endbossHurt() {
         if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-            this.clearIntervalByFunction(this.endbossWalkImages);
+
+
+            //this.clearIntervalByFunction(this.endbossWalkImages);
         }
     }
 
@@ -127,13 +129,13 @@ class Endboss extends MovableObject {
 
     endbossDead() {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
             clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
             clearInterval(this.intervalIds[4]);
+            this.playAnimation(this.IMAGES_DEAD);
             setInterval(() => {
                 this.y += 10;
             }, 50);

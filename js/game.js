@@ -1,11 +1,13 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let background = new Image();
 
-function init() {
+function init() {   
+
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
+    
     console.log(world.character, world.enemies);
 
 }
