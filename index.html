@@ -19,23 +19,24 @@
     <script src="models/bottle.class.js"></script>
     <script src="/models/endboss.class.js"></script>
     <script src="/models/background-object.class.js"></script>
-
     <script src="/models/keyboard.class.js"></script>
     <script src="/models/level.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    
 </head>
 
-<body onload="init()">
+<body">
     <img class="background" src="img/10_Menu/background.webp" alt="">
 
     <h1>El pollo loco</h1>
-    <div class="start_screen">
+    <div id="startScreen" class="start_screen">
         <img class="start_background" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-        <button class="test">start</button>
+        <div onclick="startGame()" class="test">start</div>
+        <div onclick="newGame()" class="test">New Game</div>
     </div>
-    <div class="    ">
+    <div id="canvasScreen" class="d-none">
     <canvas id="canvas" width="720px" height="480px">
 
     </canvas>

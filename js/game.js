@@ -2,15 +2,43 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let background = new Image();
+let movableObjects = new MovableObject();
 
-function init() {   
 
+
+
+async function init() {
+    initLevel1();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    
-    console.log(world.character, world.enemies);
 
 }
+
+async function startGame() {
+    let canvasScreen = document.getElementById('canvasScreen');
+    let startScreen = document.getElementById('startScreen');
+    startScreen.classList.add('d-none');
+    canvasScreen.classList.remove('d-none');
+    await init();
+}
+
+function lostGame() {
+    console.log('new game');
+    movableObjects.clearAllIntervals();
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+};
+
+function winGame(){
+    console.log('win game');
+    movableObjects.clearAllIntervals();
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+
 
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {

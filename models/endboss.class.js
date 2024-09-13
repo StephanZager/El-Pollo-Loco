@@ -59,16 +59,14 @@ class Endboss extends MovableObject {
     ];
 
     constructor() {
+
         super().loadImage(this.IMAGES_ENGREY[0]);
         this.loadImages(this.IMAGES_ENGREY);
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
-
         this.animate();
-        console.log(this.intervalIds);
-
     }
 
     animate() {
@@ -111,9 +109,6 @@ class Endboss extends MovableObject {
     endbossHurt() {
         if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-
-
-            //this.clearIntervalByFunction(this.endbossWalkImages);
         }
     }
 
@@ -132,13 +127,13 @@ class Endboss extends MovableObject {
             this.speed = 0;
             clearInterval(this.intervalIds[0]);
             clearInterval(this.intervalIds[1]);
-            clearInterval(this.intervalIds[2]);
             clearInterval(this.intervalIds[3]);
             clearInterval(this.intervalIds[4]);
-            this.playAnimation(this.IMAGES_DEAD);
+            this.playAnimationOnce(this.IMAGES_DEAD);
             setInterval(() => {
                 this.y += 10;
             }, 50);
+            winGame();
         }
     }
 

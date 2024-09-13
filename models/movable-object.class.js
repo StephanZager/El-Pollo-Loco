@@ -67,8 +67,7 @@ class MovableObject extends DrawableObject {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
-        this.currentImage++;
-        console.log(this.currentImage);
+        this.currentImage++;        
     }
 
     playAnimationOnce(images) {
@@ -78,7 +77,7 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
         if (i == images.length - 1) {
             this.currentImage = images.length - 1;
-            clearInterval(this.intervalIds[0]);
+           // clearInterval(this.intervalIds[0]);
         }
 
     }
@@ -132,5 +131,7 @@ class MovableObject extends DrawableObject {
         }, 50);
 
     }
+
+    
 
 }

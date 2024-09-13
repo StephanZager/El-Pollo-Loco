@@ -142,13 +142,11 @@ class Character extends MovableObject {
 
     stateAnimations() {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_Dead);
+            this.playAnimationOnce(this.IMAGES_Dead);
             this.y -= 5;
             this.y += 10;
             this.speed = 0;
-            clearInterval(this.intervalIds[0]);
-            clearInterval(this.intervalIds[1]);
-
+            lostGame();            
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
@@ -159,6 +157,7 @@ class Character extends MovableObject {
             }
         }
     }
+
 
     updateJumpAnimation() {
         if (this.speedY > 0) {
