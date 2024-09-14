@@ -142,6 +142,7 @@ class Character extends MovableObject {
 
     stateAnimations() {
         if (this.isDead()) {
+            if(this)
             this.playAnimationOnce(this.IMAGES_Dead);
             this.y -= 5;
             this.y += 10;

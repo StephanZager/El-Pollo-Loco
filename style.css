@@ -20,7 +20,7 @@ canvas {
 .start_screen {
     display: flex;
     flex-direction: column;
-    align-items: center;   
+    align-items: center;
     width: 720px;
     height: 480px;
     position: relative;
@@ -41,4 +41,24 @@ canvas {
 
 .d-none {
     display: none;
+}
+
+.won-lost-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    z-index: 3;
+}
+
+.won-lost-img img {
+    width: 400px;
+    height: 300px;
+}
+
+.lost-screen {
+    width: 720px !important;
+    height: 480px !important;
 }

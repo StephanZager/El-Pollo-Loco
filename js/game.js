@@ -8,22 +8,27 @@ let movableObjects = new MovableObject();
 
 
 async function init() {
+
+    // image for the load screen
     initLevel1();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
+    // image remove load screen
 }
 
 async function startGame() {
+    await init();
     let canvasScreen = document.getElementById('canvasScreen');
     let startScreen = document.getElementById('startScreen');
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');
-    await init();
+    
 }
 
 function lostGame() {
     console.log('new game');
+    let lostGame = document.getElementById('lostGame');
+    lostGame.style.display = 'flex';
     movableObjects.clearAllIntervals();
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);
@@ -32,6 +37,8 @@ function lostGame() {
 
 function winGame(){
     console.log('win game');
+    let wonGame = document.getElementById('wonGame');
+    wonGame.style.display = 'flex';
     movableObjects.clearAllIntervals();
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);

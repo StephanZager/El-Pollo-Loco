@@ -24,7 +24,7 @@
     <script src="models/throwable-object.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
-    
+
 </head>
 
 <body">
@@ -36,12 +36,20 @@
         <div onclick="startGame()" class="test">start</div>
         <div onclick="newGame()" class="test">New Game</div>
     </div>
-    <div id="canvasScreen" class="d-none">
-    <canvas id="canvas" width="720px" height="480px">
-
-    </canvas>
+    <div id="wonGame" class="won-lost-img" style="display: none;">
+        <img src="img/9_intro_outro_screens/win/won_2.png" alt="">
     </div>
 
-</body>
+    <div id="lostGame" class="won-lost-img" style="display: none;">
+        <img class="lost-screen" src="img/9_intro_outro_screens/game_over/game over.png" alt="">
+    </div>
+
+    <div id="canvasScreen" class="d-none">
+        <canvas id="canvas" width="720px" height="480px">
+
+        </canvas>
+    </div>
+
+    </body>
 
 </html>
