@@ -57,14 +57,27 @@ function showSteering(){
 }
 
 function returnMenu(){
+    let impressum = document.getElementById('impressum');
     let bg = document.getElementById('bg');
     let navBar = document.getElementById('menuBar');
     let steering = document.getElementById('menuSteering');
     let returMenu = document.getElementById('menuReturn');
+    impressum.style.display = 'none';
     bg.style.display = 'none';
     steering.style.display = 'none';
     navBar.style.display = 'flex';
     returMenu.style.display = 'none';
+}
+
+function showImpressum(){    
+    let bg = document.getElementById('bg');
+    let navBar = document.getElementById('menuBar');
+    let impressum = document.getElementById('impressum');
+    let returMenu = document.getElementById('menuReturn');
+    bg.style.display = 'block';
+    impressum.style.display = 'flex';
+    navBar.style.display = 'none';
+    returMenu.style.display = 'flex';
 }
 
 
