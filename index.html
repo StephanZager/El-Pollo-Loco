@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">   
+    <link rel="stylesheet" href="style.css">
     <title>DocumentEl Pollo Loco</title>
     <script src="models/drawable-object.class.js"></script>
     <script src="/models/movable-object.class.js"></script>
@@ -37,10 +37,25 @@
         </div>
         <div>
             <div id="startScreen" class="start_screen">
+                <div id="bg" style="display: none;"></div>
                 <img class="start_background" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-                <div onclick="startGame()" class="test">start</div>
-                <div onclick="newGame()" class="test">New Game</div>
+                <div id="menuBar" class="navbar">
+                    <div onclick="startGame()" class="test">START</div>
+                    <div onclick="showSteering()" class="test">STEUERUNG</div>
+                    <div class="test">IMPRESSUM</div>
+                    <div onclick="newGame()" class="test">New Game</div>
+                </div>
+                <div id="menuSteering" class="steering" style="display: none;">
+                    <span>Pfleil Taste Links - Character läuft nach Links!</span>
+                    <span>Pfeil Taste Rechts - Character läuft nach Rechts!</span>
+                    <span>Leerzeichen - Springen!</span>
+                    <span>D - Flasche werfen!</span>                    
+                </div>
+                <div id="menuReturn" class="menu-return" style="display: none;">
+                    <p onclick="returnMenu()">ZURÜCK</p>
+                </div>
             </div>
+            
             <div id="wonGame" class="won-lost-img" style="display: none;">
                 <img src="img/9_intro_outro_screens/win/won_2.png" alt="">
             </div>

@@ -45,6 +45,28 @@ function winGame(){
     }
 }
 
+function showSteering(){
+    let bg = document.getElementById('bg');
+    let navBar = document.getElementById('menuBar');
+    let steering = document.getElementById('menuSteering');
+    let returMenu = document.getElementById('menuReturn');
+    bg.style.display = 'block';
+    steering.style.display = 'flex';
+    navBar.style.display = 'none';
+    returMenu.style.display = 'flex';
+}
+
+function returnMenu(){
+    let bg = document.getElementById('bg');
+    let navBar = document.getElementById('menuBar');
+    let steering = document.getElementById('menuSteering');
+    let returMenu = document.getElementById('menuReturn');
+    bg.style.display = 'none';
+    steering.style.display = 'none';
+    navBar.style.display = 'flex';
+    returMenu.style.display = 'none';
+}
+
 
 
 window.addEventListener('keydown', (event) => {
