@@ -10,14 +10,16 @@ class World {
     coinBar = new StatusCoinBar();
     bottleBar = new StatusBottleBar();
     throwableObject = [];
-
+    chicken_sound = new Audio('audio/enemie_die.mp3');
+    coin_sound = new Audio('audio/coin.mp3');
+    bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
+    gameAudio = new GameAudio();
 
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.backgroundImage.src = 'img/9_intro_outro_screens/start/startscreen_1.png';
+        this.keyboard = keyboard;       
         this.draw();
         this.setWorld();
         this.run();
@@ -41,6 +43,7 @@ class World {
     checkCoinObject() {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
+                this.coin_sound.play();
                 this.coinBar.collectCoin(index, this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
@@ -49,6 +52,7 @@ class World {
     checkBottleObject() {
         this.level.bottle.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
+                this.bottle_collect_sound.play();
                 this.bottleBar.collectBottle(index, this.level.bottle);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
@@ -84,6 +88,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
                 if (enemy instanceof Chicken) {
+                    this.chicken_sound.play();
                     enemy.hit();
                     this.character.noHit();
                     this.character.speedY = 5;
@@ -168,4 +173,3 @@ class World {
         this.ctx.restore();
     }
 }
-

@@ -15,6 +15,16 @@ canvas {
     background-color: black;
 }
 
+#button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 h1 {
     font-size: 60px;
     letter-spacing: 4px;

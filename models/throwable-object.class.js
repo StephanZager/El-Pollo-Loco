@@ -1,6 +1,9 @@
 class ThrowableObject extends MovableObject {
     isFalling = true;
 
+    throw_sound = new Audio('audio/throw.mp3');
+    splash_sound = new Audio('audio/bottle_crack.mp3');
+
 
     IMAGES_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -30,6 +33,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
+        this.throw_sound.play();
         this.speedY = 30;
         this.applyGravity();
         this.setStoppableInterval(() => {
@@ -40,6 +44,8 @@ class ThrowableObject extends MovableObject {
     };
 
     bottleSplash() {
+        this.throw_sound.pause();
+        this.splash_sound.play();
         this.speedY = 0;
         this.acceleration = 0;
         this.clearAllIntervals();
