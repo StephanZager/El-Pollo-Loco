@@ -17,6 +17,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.backgroundImage.src = 'img/9_intro_outro_screens/start/startscreen_1.png';
         this.draw();
         this.setWorld();
         this.run();
