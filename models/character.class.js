@@ -108,7 +108,7 @@ class Character extends MovableObject {
         if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE) {
             if (this.idle) {
                 this.playAnimation(this.IMAGES_IDEL_LONG);
-                this.world.gameAudio.playSound('character', 'long_idle');
+                playSound('character', 'long_idle');
             } else {
                 this.long_idle_sound.pause();
                 this.playAnimation(this.IMAGES_IDEL);
@@ -133,7 +133,7 @@ class Character extends MovableObject {
            
             if (!this.isAboveGround()) {
                 //this.walking_sound.play();
-                this.world.gameAudio.playSound('character', 'walking');
+               
             }
             
             
@@ -148,12 +148,12 @@ class Character extends MovableObject {
             this.idle = false;
             this.idleStartTime = null;
             if (!this.isAboveGround()) {
-                this.world.gameAudio.playSound('character', 'walking');
+                
             } 
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-            this.walking_sound.pause();
+            
             this.jump();
             this.idle = false;
             this.idleStartTime = null;
@@ -169,19 +169,21 @@ class Character extends MovableObject {
             this.y -= 5;
             this.y += 10;
             this.speed = 0;
-            lostGame();            
+            //lostGame();            
         } else if (this.isHurt()) {
+            playSound('character', 'hurt');
             this.playAnimation(this.IMAGES_HURT);
-            this.world.gameAudio.playSound('character', 'hurt');
+            
         } else if (this.isAboveGround()) {
            if (!this.jumpSoundPlaying) {
-                this.world.gameAudio.playSound('character', 'jump');
+                playSound('character', 'jump');
                 this.jumpSoundPlaying = true;
             }
             this.updateJumpAnimation();
         } else {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALK);
+                playSound('character', 'walking');
             }
             this.jumpSoundPlaying = false;
         }

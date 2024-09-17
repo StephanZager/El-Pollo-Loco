@@ -22,58 +22,68 @@
     <script src="/models/keyboard.class.js"></script>
     <script src="/models/level.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
-    <script src="models/audio.class.js"></script>
+    
     <script src="levels/level1.js"></script>
+    <script src="js/gameaudio.js"></script>
     <script src="js/game.js"></script>
 
 </head>
 
-<body onload="init()">
-
-    <img class="background" src="img/10_Menu/background.png" alt="">
+<body>
+    
+    <button onclick="muteSounds()">hallo</button>
+    <button onclick="unmuteSounds()">sad</button>
 
     <div class="menu-container">
         <div>
             <h1>El pollo loco</h1>
         </div>
         <div class="menu-section">
-            <div id="startScreen" class="start_screen d-none">
-                <div id="bg" style="display: none;"></div>
-                <img class="start_background" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-                <div id="menuBar" class="navbar">
-                    <p onclick="startGame()" class="test">START</p>
-                    <p onclick="showSteering()" class="test">STEUERUNG</p>
-                    <p onclick="showImpressum()" class="test">IMPRESSUM</p>
-                    <p onclick="newGame()" class="test">New Game</p>
-                </div>
-                <div id="menuSteering" class="steering" style="display: none;">
-                    <span>Pfleil Taste Links - Character läuft nach Links!</span>
-                    <span>Pfeil Taste Rechts - Character läuft nach Rechts!</span>
-                    <span>Leerzeichen - Springen!</span>
-                    <span>D - Flasche werfen!</span>
+            <div id="startScreen" class="start_screen">                
+                <div class="navbar-container">
+                    <div id="menuBar" class="navbar">
+                        <p onclick="startGame()" class="test">START</p>
+                        <p onclick="showSteering()" class="test">STEUERUNG</p>
+                        <p onclick="showImpressum()" class="test">IMPRESSUM</p>
+                        <p onclick="newGame()" class="test">New Game</p>
+                    </div>
+                    <div class="under-menu">
+                        <div id="menuSteering" class="steering" style="display: none;">
+                            <span>Links - Character läuft nach Links!</span>
+                            <span>Pfeil Taste Rechts - Character läuft nach Rechts!</span>
+                            <span>Leerzeichen - Springen!</span>
+                            <span>D - Flasche werfen!</span>
+                        </div>
+
+                        <div id="impressum" style="display: none;">
+                            <h1>Impressum</h1>
+                            <p>Angaben gemäß § 5 DDG</p>
+                            <p>Stephan Zager
+                                Südwall 22
+                                39576 Stendal
+                            </p>
+                            <p> <strong>Vertreten durch: </strong>
+                                Stephan Zager<br>
+                            </p>
+                            <p><strong>Kontakt:</strong>
+                                Telefon: 015-259723608
+                                E-Mail: <a href='mailto:Blitzis@outlook.de'>Blitzis@outlook.de</a></br></p><br>
+                            Impressum vom <a href="https://www.impressum-generator.de">Impressum Generator</a> der <a
+                                href="https://www.kanzlei-hasselbach.de/standorte/bonn/" rel="nofollow">Kanzlei
+                                Hasselbach,
+                                Bonn</a>
+                        </div>
+                        <div id="menuReturn" class="menu-return" style="display: none;">
+                            <p onclick="returnMenu()">ZURÜCK</p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div id="impressum" style="display: none;">
-                    <h1>Impressum</h1>
-                    <p>Angaben gemäß § 5 DDG</p>
-                    <p>Stephan Zager
-                        Südwall 22
-                        39576 Stendal
-                    </p>
-                    <p> <strong>Vertreten durch: </strong>
-                        Stephan Zager<br>
-                    </p>
-                    <p><strong>Kontakt:</strong>
-                        Telefon: 015-259723608
-                        E-Mail: <a href='mailto:Blitzis@outlook.de'>Blitzis@outlook.de</a></br></p><br>
-                    Impressum vom <a href="https://www.impressum-generator.de">Impressum Generator</a> der <a
-                        href="https://www.kanzlei-hasselbach.de/standorte/bonn/" rel="nofollow">Kanzlei Hasselbach,
-                        Bonn</a>
-                </div>
 
-                <div id="menuReturn" class="menu-return" style="display: none;">
-                    <p onclick="returnMenu()">ZURÜCK</p>
-                </div>
+
+
+
 
             </div>
 
@@ -87,7 +97,7 @@
 
 
 
-            <div id="canvasScreen" class="">
+            <div id="canvasScreen" class="d-none">
                 <canvas id="canvas" width="720px" height="480px"></canvas>
 
 

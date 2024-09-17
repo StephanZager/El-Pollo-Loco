@@ -7,12 +7,16 @@ let movableObjects = new MovableObject();
 
 
 
+
 async function init() {
 
     // image for the load screen
     initLevel1();
+    
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    
+    
     // image remove load screen
 }
 
@@ -26,7 +30,7 @@ async function startGame() {
 }
 
 function lostGame() {
-    console.log('new game');
+    
     let lostGame = document.getElementById('lostGame');
     lostGame.style.display = 'flex';
     movableObjects.clearAllIntervals();
@@ -36,7 +40,7 @@ function lostGame() {
 };
 
 function winGame(){
-    console.log('win game');
+    
     let wonGame = document.getElementById('wonGame');
     wonGame.style.display = 'flex';
     movableObjects.clearAllIntervals();
@@ -46,11 +50,11 @@ function winGame(){
 }
 
 function showSteering(){
-    let bg = document.getElementById('bg');
+    
     let navBar = document.getElementById('menuBar');
     let steering = document.getElementById('menuSteering');
     let returMenu = document.getElementById('menuReturn');
-    bg.style.display = 'block';
+    
     steering.style.display = 'flex';
     navBar.style.display = 'none';
     returMenu.style.display = 'flex';
@@ -58,27 +62,32 @@ function showSteering(){
 
 function returnMenu(){
     let impressum = document.getElementById('impressum');
-    let bg = document.getElementById('bg');
+   
     let navBar = document.getElementById('menuBar');
     let steering = document.getElementById('menuSteering');
     let returMenu = document.getElementById('menuReturn');
     impressum.style.display = 'none';
-    bg.style.display = 'none';
+   
     steering.style.display = 'none';
     navBar.style.display = 'flex';
     returMenu.style.display = 'none';
 }
 
 function showImpressum(){    
-    let bg = document.getElementById('bg');
+   
     let navBar = document.getElementById('menuBar');
     let impressum = document.getElementById('impressum');
     let returMenu = document.getElementById('menuReturn');
-    bg.style.display = 'block';
+    
     impressum.style.display = 'flex';
     navBar.style.display = 'none';
     returMenu.style.display = 'flex';
 }
+
+
+
+
+
 
 
 

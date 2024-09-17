@@ -3,7 +3,7 @@ class Chicken extends MovableObject {
     height = 80;
     width = 70;
     y = 350;
-
+    
     IMAGES_WALK = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -51,8 +51,10 @@ class Chicken extends MovableObject {
     }
 
     isDeadChicken() {
+      
         setInterval(() => {
             if (this.energy <= 0) {
+                
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.speed = 0;
                 this.offset = {

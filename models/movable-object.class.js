@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
     idle = false;
     intervalIds = [];
     currentImage = 0;
+    
 
     offset = {
         top: 0,

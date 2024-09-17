@@ -10,22 +10,19 @@ class World {
     coinBar = new StatusCoinBar();
     bottleBar = new StatusBottleBar();
     throwableObject = [];
-    chicken_sound = new Audio('audio/enemie_die.mp3');
-    coin_sound = new Audio('audio/coin.mp3');
-    bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
-    gameAudio = new GameAudio();
+    
 
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.keyboard = keyboard;       
+        this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
     }
 
-    
+
 
     setWorld() {
         this.character.world = this;
@@ -43,7 +40,7 @@ class World {
     checkCoinObject() {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.coin_sound.play();
+                playSound('coin', 'collect');
                 this.coinBar.collectCoin(index, this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
@@ -52,7 +49,7 @@ class World {
     checkBottleObject() {
         this.level.bottle.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                this.bottle_collect_sound.play();
+                playSound('bottle', 'collect');
                 this.bottleBar.collectBottle(index, this.level.bottle);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
@@ -61,6 +58,7 @@ class World {
     checkThrowObject() {
         if (this.keyboard.D && this.bottleBar.bottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            playSound('bottle', 'throw');
             this.throwableObject.push(bottle);
             this.bottleBar.setPercentage(this.bottleBar.bottles - 1); // bootle bar ist die classe dann kann ich da auch hin ;) weil oben ich das definiere
         }
@@ -88,7 +86,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
                 if (enemy instanceof Chicken) {
-                    this.chicken_sound.play();
+                    playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
                     this.character.speedY = 5;
@@ -98,7 +96,8 @@ class World {
 
         this.throwableObject.forEach((bottle, bottleIndex) => {
             this.level.enemies.forEach((enemy, index) => {
-                if (bottle.isColliding(enemy)) {
+                if (bottle.isColliding(enemy)) {  
+                    playSound('bottle', 'crack');                                   
                     enemy.hit();
                     enemy.noHit();
                     bottle.bottleSplash();
