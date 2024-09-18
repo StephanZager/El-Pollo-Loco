@@ -22,7 +22,7 @@ async function init() {
 
 async function startGame() {
     await init();
-    let canvasScreen = document.getElementById('canvasScreen');
+    let canvasScreen = document.getElementById('canvas');
     let startScreen = document.getElementById('startScreen');
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');

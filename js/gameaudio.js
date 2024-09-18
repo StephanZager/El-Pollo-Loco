@@ -1,3 +1,5 @@
+let muteSound = false;
+
 let sounds = {
     character: {
         walking: new Audio('audio/walk.mp3'),
@@ -25,6 +27,20 @@ function playSound(category, sound) {
 function stopSound(category, sound) {
     sounds[category][sound].pause();
     sounds[category][sound].currentTime = 0;
+}
+
+function soundButton() {
+    let soundButton = document.getElementById('soundButton');
+
+    if (muteSound == false) {
+        muteSounds();
+        muteSound = true;
+        soundButton.classList.add('muted'); // Fügen Sie die Klasse hinzu
+    } else {
+        unmuteSounds();
+        muteSound = false;
+        soundButton.classList.remove('muted'); // Entfernen Sie die Klasse
+    }
 }
 
 function muteSounds() {

@@ -4,6 +4,7 @@
 }
 
 body {
+    overflow-x: hidden;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -15,9 +16,43 @@ body {
     background-position: center;
 }
 
+
+/*canvas */
+
+#canvasScreen {
+    position: relative;
+    /* Stellt sicher, dass der Container relativ positioniert ist */
+}
+
 canvas {
     background-color: black;
 }
+
+/*mbile button*/
+
+#button-right-top {
+    gap: 10px;
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+#buttonContainer button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#buttonContainer button:hover {
+    background-color: #e0e0e0;
+}
+
+
 
 #button {
     position: absolute;
@@ -29,21 +64,75 @@ canvas {
     cursor: pointer;
 }
 
+.mobile-img-button {
+    padding: 5px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.311);
+    width: 20px;
+}
+
+.mobile-img-button {
+    cursor: pointer;
+}
+
+.mobile-img-button:hover {
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.mobile-img-button:active {
+    transform: scale(0.95);
+}
+
+#soundButton {
+    position: relative;
+    display: inline-block;
+}
+
+.x-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -50%);
+    display: none; /* Standardmäßig ausgeblendet */
+}
+
+.x-overlay::before,
+.x-overlay::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(228, 9, 9); 
+    transform-origin: center;
+}
+
+.x-overlay::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.x-overlay::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#soundButton.muted .x-overlay {
+    display: block; 
+}
+
+/*Menu*/
+
 h1 {
     font-size: 60px;
     letter-spacing: 4px;
     line-height: 0px;
-}
-
-#bg {
-    background-color: rgba(23, 20, 20, 0.687);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
 }
 
 .navbar-container {
@@ -131,7 +220,7 @@ p {
     margin-bottom: 10px;
 }
 
-.menu-return {    
+.menu-return {
     z-index: 2;
     letter-spacing: 2px;
     width: 100%;
@@ -141,10 +230,10 @@ p {
     justify-content: flex-end;
     flex-direction: column;
     align-items: flex-end;
-    
+
 }
 
-.under-menu{
+.under-menu {
     box-sizing: border-box;
     padding: 10px;
     display: flex;
@@ -188,16 +277,6 @@ p {
     z-index: 3;
 }
 
-.won-lost-img img {
-    width: 400px;
-    height: 300px;
-}
-
-.lost-screen {
-    width: 720px !important;
-    height: 480px !important;
-}
-
 #impressum {
 
     overflow-x: auto;
@@ -218,9 +297,25 @@ p {
     margin-top: 20px;
 }
 
+/*Won or Lost screen*/
+
+.won-lost-img img {
+    width: 400px;
+    height: 300px;
+}
+
+.lost-screen {
+    width: 720px !important;
+    height: 480px !important;
+}
+
 
 
 @media only screen and (max-width: 720px) {
+    #canvasScreen {
+        width: 100%;
+
+    }
 
     canvas {
         width: 100%;
@@ -241,6 +336,10 @@ p {
 
 @media only screen and (max-height: 480px) {
     canvas {
+        height: 100vh;
+    }
+
+    #canvasScreen {
         height: 100vh;
     }
 
