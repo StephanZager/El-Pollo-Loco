@@ -144,3 +144,92 @@ window.addEventListener('keyup', (event) => {
     };
 
 });
+
+// Event-Listener für Touch-Steuerung
+
+document.addEventListener('DOMContentLoaded', () => {
+    const leftButton = document.getElementById('left-button');
+    const rightButton = document.getElementById('right-button');
+    const upButton = document.getElementById('up-button');
+    const throwButton = document.getElementById('throw-button');
+    const soundButton = document.getElementById('soundButton');
+    const menuButton = document.querySelector('#button-right-top img[src="img/10_Menu/mobile/menu.png"]');
+
+    function preventDefault(event) {
+        event.preventDefault();
+    }
+
+    if (leftButton) {
+        leftButton.addEventListener('touchstart', (event) => {
+            keyboard.LEFT = true;
+            preventDefault(event);
+        });
+
+        leftButton.addEventListener('touchend', (event) => {
+            keyboard.LEFT = false;
+            preventDefault(event);
+        });
+
+        leftButton.addEventListener('contextmenu', preventDefault);
+    }
+
+    if (rightButton) {
+        rightButton.addEventListener('touchstart', (event) => {
+            keyboard.RIGHT = true;
+            preventDefault(event);
+        });
+
+        rightButton.addEventListener('touchend', (event) => {
+            keyboard.RIGHT = false;
+            preventDefault(event);
+        });
+
+        rightButton.addEventListener('contextmenu', preventDefault);
+    }
+
+    if (upButton) {
+        upButton.addEventListener('touchstart', (event) => {
+            keyboard.SPACE = true; // Setzt die Leertaste
+            preventDefault(event);
+        });
+
+        upButton.addEventListener('touchend', (event) => {
+            keyboard.SPACE = false; // Setzt die Leertaste zurück
+            preventDefault(event);
+        });
+
+        upButton.addEventListener('contextmenu', preventDefault);
+    }
+
+    if (throwButton) {
+        throwButton.addEventListener('touchstart', (event) => {
+            keyboard.D = true;
+            preventDefault(event);
+        });
+
+        throwButton.addEventListener('touchend', (event) => {
+            keyboard.D = false;
+            preventDefault(event);
+        });
+
+        throwButton.addEventListener('contextmenu', preventDefault);
+    }
+
+    if (soundButton) {
+        soundButton.addEventListener('touchstart', (event) => {
+            soundButton.click(); // Simuliert einen Klick
+            preventDefault(event);
+        });
+
+        soundButton.addEventListener('contextmenu', preventDefault);
+    }
+
+    if (menuButton) {
+        menuButton.addEventListener('touchstart', (event) => {
+            menuButton.click(); // Simuliert einen Klick
+            preventDefault(event);
+        });
+
+        menuButton.addEventListener('contextmenu', preventDefault);
+    }
+});

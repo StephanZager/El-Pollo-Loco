@@ -89,6 +89,13 @@ canvas {
     border-radius: 100%;
     background-color: rgba(0, 0, 0, 0.311);
     width: 35px;
+    
+    
+   
+}
+.mobile-img-button:focus {
+    outline: none; 
+    box-shadow: none; 
 }
 
 .mobile-img-button {
@@ -158,10 +165,12 @@ h1 {
 .navbar-container {
     width: 100%;
     height: 100%;
+    
     border: 4px solid #ffdb04;
     background-color: #fcab3c;
     border-radius: 10px;
     box-shadow: 0px 15px 40px rgba(0, 0, 0, 22.778);
+    
 }
 
 .navbar {
@@ -206,7 +215,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    width: 500px;
     height: 400px;
     position: relative;
     margin-left: 20px;
