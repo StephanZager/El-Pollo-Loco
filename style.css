@@ -30,6 +30,26 @@ canvas {
 
 /*mbile button*/
 
+#button-bottom-mobile{
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    bottom: 10px;   
+    z-index: 10;
+    width: 100%;    
+}
+
+.button-mobile-left {
+    margin-left: 20px;
+    display: flex;
+    gap: 40px; /* Fügt Abstand zwischen den Bildern hinzu */
+}
+.button-mobile-right {
+    margin-right: 20px;
+    display: flex;
+    gap: 40px; /* Fügt Abstand zwischen den Bildern hinzu */
+}
+
 #button-right-top {
     gap: 10px;
     display: flex;
@@ -68,7 +88,7 @@ canvas {
     padding: 5px;
     border-radius: 100%;
     background-color: rgba(0, 0, 0, 0.311);
-    width: 20px;
+    width: 35px;
 }
 
 .mobile-img-button {
@@ -314,7 +334,6 @@ p {
 @media only screen and (max-width: 720px) {
     #canvasScreen {
         width: 100%;
-
     }
 
     canvas {
@@ -329,8 +348,18 @@ p {
     }
 
     .menu-section img {
-        width: 100%;
-        height: auto;
+        width: 35px;
+        
+    }   
+  
+
+    #buttonContainer button {
+        padding: 8px;
+        font-size: 0.9rem; /* Kleinere Schriftgröße */
+    }
+
+    .mobile-img-button {
+        width: 30px; /* Kleinere Breite */
     }
 }
 
@@ -346,4 +375,5 @@ p {
     .menu-section {
         height: 100vh;
     }
+    
 }
