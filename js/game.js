@@ -32,11 +32,18 @@ async function startGame() {
 function lostGame() {
     
     let lostGame = document.getElementById('lostGame');
+    
     lostGame.style.display = 'flex';
-    movableObjects.clearAllIntervals();
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
+
+    setTimeout(() => {
+        movableObjects.clearAllIntervals();
+        for (let i = 1; i < 9999; i++) {
+            window.clearInterval(i);
+        }   
+    }, 2000);
+       
+   
+    
 };
 
 function winGame(){

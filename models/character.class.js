@@ -130,16 +130,16 @@ class Character extends MovableObject {
             this.otherDirection = false;
             this.idle = false;
             this.idleStartTime = null;
-           
+
             if (!this.isAboveGround()) {
                 //this.walking_sound.play();
-               
+
             }
-            
-            
-            
-           
-        
+
+
+
+
+
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
@@ -148,12 +148,12 @@ class Character extends MovableObject {
             this.idle = false;
             this.idleStartTime = null;
             if (!this.isAboveGround()) {
-                
-            } 
+
+            }
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-            
+
             this.jump();
             this.idle = false;
             this.idleStartTime = null;
@@ -162,20 +162,21 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
-    stateAnimations() {        
+    stateAnimations() {
         if (this.isDead()) {
-            if(this)
-            this.playAnimationOnce(this.IMAGES_Dead);
+            this.playAnimation(this.IMAGES_Dead);
             this.y -= 5;
             this.y += 10;
             this.speed = 0;
-            //lostGame();            
+            lostGame();
+            
+
         } else if (this.isHurt()) {
             playSound('character', 'hurt');
             this.playAnimation(this.IMAGES_HURT);
-            
+
         } else if (this.isAboveGround()) {
-           if (!this.jumpSoundPlaying) {
+            if (!this.jumpSoundPlaying) {
                 playSound('character', 'jump');
                 this.jumpSoundPlaying = true;
             }
@@ -194,7 +195,7 @@ class Character extends MovableObject {
         if (this.speedY > 0) {
             if (this.currentImage > 3) {
                 this.currentImage = 3;
-                
+
             }
         } else {
             if (this.speedY > -30) {
@@ -208,7 +209,7 @@ class Character extends MovableObject {
             }
         }
         this.playAnimation(this.IMAGES_JUMPING);
-        
+
     }
 
 }
