@@ -22,7 +22,7 @@ class DrawableObject {
      * @param {Array} arr - ['img/images1.png','img/images2.png', ...]
      */
     loadImages(arr) {
-        arr.forEach((path) => {
+        arr.forEach((path) => {            
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;

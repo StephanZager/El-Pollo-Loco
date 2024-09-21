@@ -12,11 +12,11 @@ async function init() {
 
     // image for the load screen
     initLevel1();
-    
+
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    
-    
+
+
     // image remove load screen
 }
 
@@ -26,28 +26,25 @@ async function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');
-    
+
 }
 
 function lostGame() {
-    
     let lostGame = document.getElementById('lostGame');
-    
     lostGame.style.display = 'flex';
 
     setTimeout(() => {
         movableObjects.clearAllIntervals();
         for (let i = 1; i < 9999; i++) {
             window.clearInterval(i);
-        }   
-    }, 2000);
-       
-   
+        } 
+    }, 450);
     
+
 };
 
-function winGame(){
-    
+function winGame() {
+
     let wonGame = document.getElementById('wonGame');
     wonGame.style.display = 'flex';
     movableObjects.clearAllIntervals();
@@ -56,36 +53,35 @@ function winGame(){
     }
 }
 
-function showSteering(){
-    
+function showSteering() {
+
     let navBar = document.getElementById('menuBar');
     let steering = document.getElementById('menuSteering');
     let returMenu = document.getElementById('menuReturn');
-    
+
     steering.style.display = 'flex';
     navBar.style.display = 'none';
     returMenu.style.display = 'flex';
 }
 
-function returnMenu(){
+function returnMenu() {
     let impressum = document.getElementById('impressum');
-   
+
     let navBar = document.getElementById('menuBar');
     let steering = document.getElementById('menuSteering');
     let returMenu = document.getElementById('menuReturn');
     impressum.style.display = 'none';
-   
+
     steering.style.display = 'none';
     navBar.style.display = 'flex';
     returMenu.style.display = 'none';
 }
 
-function showImpressum(){    
-   
+function showImpressum() {
     let navBar = document.getElementById('menuBar');
     let impressum = document.getElementById('impressum');
     let returMenu = document.getElementById('menuReturn');
-    
+
     impressum.style.display = 'flex';
     navBar.style.display = 'none';
     returMenu.style.display = 'flex';
