@@ -71,7 +71,7 @@ class Endboss extends MovableObject {
 
     animate() {
         this.handleFirstContact();
-        this.setStoppableInterval(() => this.endbossHurt(), 100);
+        this.setStoppableInterval(() => this.endbossHurt(), 120);
         this.setStoppableInterval(() => this.endbossDead(), 500);
     }
 
@@ -108,7 +108,9 @@ class Endboss extends MovableObject {
 
     endbossHurt() {
         if (this.isHurt()) {
+            clearInterval(this.intervalIds[0]);
             this.playAnimation(this.IMAGES_HURT);
+            
         }
     }
 
