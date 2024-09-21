@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
     isNoHit = false;
     idle = false;
     intervalIds = [];
-    currentImage = 0;
+    
     
 
     offset = {
@@ -64,6 +64,9 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
+       if (this.currentImage >= images.length) {
+            this.currentImage = 0; 
+        }
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];

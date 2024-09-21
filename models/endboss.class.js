@@ -71,7 +71,7 @@ class Endboss extends MovableObject {
 
     animate() {
         this.handleFirstContact();
-        this.setStoppableInterval(() => this.endbossHurt(), 120);
+        this.setStoppableInterval(() => this.endbossHurt(), 100);
         this.setStoppableInterval(() => this.endbossDead(), 500);
     }
 
@@ -103,12 +103,13 @@ class Endboss extends MovableObject {
     }
 
     endbossEngreyImages() {
+        console.log(this.currentImage);
         this.playAnimation(this.IMAGES_ENGREY);
     }
 
     endbossHurt() {
-        if (this.isHurt()) {
-            clearInterval(this.intervalIds[0]);
+        if (this.isHurt()) {  
+            console.log(this.currentImage);      
             this.playAnimation(this.IMAGES_HURT);
             
         }
@@ -116,6 +117,7 @@ class Endboss extends MovableObject {
 
     endbossAttack() {
         this.setStoppableInterval(() => {
+            console.log(this.currentImage);
             this.clearAllIntervals();
             this.bossAnimationFisrstContact = false;
             this.playAnimation(this.IMAGES_ATTACK);

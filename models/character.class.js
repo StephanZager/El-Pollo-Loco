@@ -85,8 +85,9 @@ class Character extends MovableObject {
 
 
     constructor() {
-
+        
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        this.currentImage = 0;
         this.loadImages(this.IMAGES_IDEL);
         this.loadImages(this.IMAGES_IDEL_LONG);
         this.loadImages(this.IMAGES_WALK);
@@ -102,7 +103,7 @@ class Character extends MovableObject {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
         this.setStoppableInterval(() => this.stateAnimations(), 50);
-        this.setStoppableInterval(() => this.deadAnimation(), 50);
+        this.setStoppableInterval(() => this.deadAnimation(), 200);
     }
 
     idleAnimation() {
@@ -180,22 +181,21 @@ class Character extends MovableObject {
 
     deadAnimation() {
         if (this.isDead()) {
-           // if (this.currentImage === 0) { 
-           //     this.currentImage = 0; 
-           // }
-
-        
-        this.playAnimation(this.IMAGES_Dead);
-        if (this.currentImage >= this.IMAGES_Dead.length) {
-            this.currentImage = this.IMAGES_Dead.length - 1;
-            lostGame();
+            if (this.currentImage === 0) { 
+                this.currentImage = 0; 
+            }
+    
+            console.log(this.currentImage);
+            this.playAnimation(this.IMAGES_Dead);
+            if (this.currentImage >= this.IMAGES_Dead.length) {
+                this.currentImage = this.IMAGES_Dead.length - 1;
+                lostGame();
+            }
+            this.speed = 0;
+            this.y -= 40;
+            this.y += 50;
         }
-        this.speed = 0;
-        this.y -= 40;
-        this.y += 50;
-
     }
-}
 
 
 

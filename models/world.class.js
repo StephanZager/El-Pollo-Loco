@@ -1,4 +1,5 @@
 class World {
+   
     character = new Character();
     boss = new Endboss();
     level = level1;
@@ -29,6 +30,7 @@ class World {
     }
 
     run() {
+        
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObject();
