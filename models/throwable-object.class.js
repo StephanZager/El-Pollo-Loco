@@ -3,6 +3,7 @@ class ThrowableObject extends MovableObject {
 
 
 
+    
 
 
     IMAGES_ROTATION = [
@@ -45,7 +46,8 @@ class ThrowableObject extends MovableObject {
     };
 
     bottleSplash() {
-        
+       
+        this.isFalling = false;
         this.speedY = 0;
         this.acceleration = 0;
         this.clearAllIntervals();

@@ -1,6 +1,14 @@
 let muteSound = false;
 
 let sounds = {
+    menu: {
+        startScreen: new Audio('audio/menu_audio.mp3'),
+    },
+    game: {
+        game: new Audio('audio/game_music.mp3'),
+        gameOver: new Audio('audio/game_over.mp3'),
+        gameWon: new Audio('audio/win_audio.mp3'),
+    },
     character: {
         walking: new Audio('audio/walk.mp3'),
         hurt: new Audio('audio/character_hurt.mp3'),
@@ -9,6 +17,7 @@ let sounds = {
     },
     chicken: {
         die: new Audio('audio/enemie_die.mp3'),
+        attack: new Audio('audio/endboss-attack.mp3'),
     },
     coin: {
         collect: new Audio('audio/coin.mp3'),
@@ -46,7 +55,7 @@ function soundButton() {
 function muteSounds() {
     for (let category in sounds) {
         for (let sound in sounds[category]) {
-            let audio = sounds[category][sound];            
+            let audio = sounds[category][sound];
             audio.muted = true;
         }
     }
@@ -55,7 +64,7 @@ function muteSounds() {
 function unmuteSounds() {
     for (let category in sounds) {
         for (let sound in sounds[category]) {
-            let audio = sounds[category][sound];            
+            let audio = sounds[category][sound];
             audio.muted = false;
         }
     }

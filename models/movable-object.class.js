@@ -5,19 +5,23 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    energy = 100;
+    energy = 200;
     lastHit = 0;
     isNoHit = false;
     idle = false;
     intervalIds = [];
-    
-    
-
     offset = {
         top: 0,
         bottom: 0,
         left: 0,
         right: 0
+    }
+
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 
     applyGravity() {
@@ -63,28 +67,6 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    playAnimation(images) {
-       if (this.currentImage >= images.length) {
-            this.currentImage = 0; 
-        }
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
-
-    playAnimationOnce(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-        if (i == images.length - 1) {
-            this.currentImage = images.length - 1;
-           // clearInterval(this.intervalIds[0]);
-        }
-
-    }
-
     setStoppableInterval(fn, time) {
         let intervalId = setInterval(fn, time);
         this.intervalIds.push(intervalId);
@@ -95,28 +77,36 @@ class MovableObject extends DrawableObject {
     };
 
     jump() {
+        this.currentImage = 0;
         this.speedY = 30;
     }
 
     noHit() {
+       
         this.isNoHit = true;
         setTimeout(() => {
             this.isNoHit = false;
         }, 300);
     }
 
+
     hit() {
         if (!this.isNoHit) {
+            
             this.energy -= 5;
-            if (this.energy < 0) {
+            if (this.energy <= 0) {
                 this.energy = 0;
+                this.currentImage = 0;                
+                this.isNoHit = true;
             } else {
                 this.lastHit = new Date().getTime();
             }
         }
     }
 
-    isHurt() {
+
+
+    isHurt() {       
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.5;
@@ -132,18 +122,5 @@ class MovableObject extends DrawableObject {
             this.acceleration = 0;
             this.clearAllIntervals();
         }, 50);
-
     }
-
-    
-   // gravityDie() {
-    //    this.speedY = 0;
-    //    setStopInterval(() => {
-    //        this.y += this.speedY;
-    //        this.speedY += this.acceleration * 0.5;
-    //    }, 1000 / 25);
-    //}
-
-    
-
 }

@@ -1,5 +1,5 @@
 class World {
-   
+
     character = new Character();
     boss = new Endboss();
     level = level1;
@@ -11,10 +11,11 @@ class World {
     coinBar = new StatusCoinBar();
     bottleBar = new StatusBottleBar();
     throwableObject = [];
-    
+
 
 
     constructor(canvas) {
+        
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -30,7 +31,7 @@ class World {
     }
 
     run() {
-        
+
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObject();
@@ -63,11 +64,11 @@ class World {
             playSound('bottle', 'throw');
             this.throwableObject.push(bottle);
             this.bottleBar.setPercentage(this.bottleBar.bottles - 1); // bootle bar ist die classe dann kann ich da auch hin ;) weil oben ich das definiere
+
         }
     }
 
     checkCollision() {
-
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 if (enemy instanceof Endboss) {
@@ -112,11 +113,12 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
+                this.character.hit();                
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
+
 
 
     draw() {
@@ -149,7 +151,6 @@ class World {
     }
 
     addToMap(mo) {
-
         if (mo.otherDirection) {
             this.flipImage(mo);
         }

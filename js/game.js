@@ -26,27 +26,32 @@ async function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');
+    playSound('game', 'game');
 
 }
 
 function lostGame() {
+    stopSound('game', 'game');
+    playSound('game', 'gameOver');
+
     let lostGame = document.getElementById('lostGame');
     lostGame.style.display = 'flex';
 
-    setTimeout(() => {
-        movableObjects.clearAllIntervals();
-        for (let i = 1; i < 9999; i++) {
-            window.clearInterval(i);
-        } 
-    }, 3000);
-    
+
+    movableObjects.clearAllIntervals();
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+
 
 };
 
 function winGame() {
-
+    stopSound('game', 'game');
+    playSound('game', 'gameWon');
     let wonGame = document.getElementById('wonGame');
     wonGame.style.display = 'flex';
+
     movableObjects.clearAllIntervals();
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);

@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-
+    energy = 200;
     jumpSoundPlaying = false;
     jumpInterval = null;
     idleTimeout = null;
@@ -41,7 +41,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-54.png',
         'img/2_character_pepe/5_dead/D-55.png',
         'img/2_character_pepe/5_dead/D-56.png',
-        //'img/2_character_pepe/5_dead/D-57.png',
+        'img/2_character_pepe/5_dead/D-57.png',
     ];
 
     IMAGES_HURT = [
@@ -85,7 +85,6 @@ class Character extends MovableObject {
 
 
     constructor() {
-        
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.currentImage = 0;
         this.loadImages(this.IMAGES_IDEL);
@@ -96,25 +95,23 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
-
     }
 
     animate() {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
         this.setStoppableInterval(() => this.stateAnimations(), 50);
-        this.setStoppableInterval(() => this.deadAnimation(), 200);
+        this.setStoppableInterval(() => this.deadAnimation(), 120);
     }
 
     idleAnimation() {
         let currentTime = new Date().getTime();
-
         if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE) {
             if (this.idle) {
                 this.playAnimation(this.IMAGES_IDEL_LONG);
                 playSound('character', 'long_idle');
             } else {
-                this.long_idle_sound.pause();
+                stopSound('character', 'long_idle');
                 this.playAnimation(this.IMAGES_IDEL);
                 if (!this.idleStartTime) {
                     this.idleStartTime = currentTime;
@@ -141,18 +138,13 @@ class Character extends MovableObject {
             this.otherDirection = true;
             this.idle = false;
             this.idleStartTime = null;
-            if (!this.isAboveGround()) {
-
-            }
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-
             this.jump();
             this.idle = false;
             this.idleStartTime = null;
         }
-
         this.world.camera_x = -this.x + 100;
     }
 
@@ -181,44 +173,35 @@ class Character extends MovableObject {
 
     deadAnimation() {
         if (this.isDead()) {
-            if (this.currentImage === 0) { 
-                this.currentImage = 0; 
-            }
-    
             console.log(this.currentImage);
             this.playAnimation(this.IMAGES_Dead);
-            if (this.currentImage >= this.IMAGES_Dead.length) {
-                this.currentImage = this.IMAGES_Dead.length - 1;
+            if (this.currentImage == this.IMAGES_Dead.length) {
                 lostGame();
             }
             this.speed = 0;
-            this.y -= 40;
-            this.y += 50;
+            this.y -= 100;
+            this.y += 120;
         }
     }
 
-
-
-
-updateJumpAnimation() {
-    if (this.speedY > 0) {
-        if (this.currentImage > 3) {
-            this.currentImage = 3;
-
-        }
-    } else {
-        if (this.speedY > -30) {
-            if (this.currentImage > 4) {
-                this.currentImage = 7;
+    updateJumpAnimation() {
+        if (this.speedY > 0) {
+            if (this.currentImage > 3) {
+                this.currentImage = 3;
             }
         } else {
-            if (this.currentImage > this.IMAGES_JUMPING.length - 1) {
-                this.currentImage = this.IMAGES_JUMPING.length - 1;
+            if (this.speedY > -30) {
+                if (this.currentImage > 4) {
+                    this.currentImage = 7;
+                }
+            } else {
+                if (this.currentImage > this.IMAGES_JUMPING.length - 1) {
+                    this.currentImage = this.IMAGES_JUMPING.length - 1;
+                }
             }
         }
-    }
-    this.playAnimation(this.IMAGES_JUMPING);
+        this.playAnimation(this.IMAGES_JUMPING);
 
-}
+    }
 
 }

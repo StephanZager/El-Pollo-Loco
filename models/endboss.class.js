@@ -6,12 +6,14 @@ class Endboss extends MovableObject {
     y = 50;
     x = 2000;
     hadFirtstContact = false;
+    firstContactCompleted = false;
     bossAnimationFisrstContact = false;
     engreyAnimationPlayed = false;
-    speed = 2 + Math.random() * 0.25;
+    speed = 2;
+    currentImage = 0;
     offset = {
         top: 50,
-        bottom: 0,
+        bottom: 10,
         left: 35,
         right: 10,
     }
@@ -70,28 +72,54 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        this.handleFirstContact();
-        this.setStoppableInterval(() => this.endbossHurt(), 100);
-        this.setStoppableInterval(() => this.endbossDead(), 500);
+        this.handleFirstContact();   
+       
+        this.setStoppableInterval(() => {
+            if (!this.firstContactCompleted) {
+                return;
+            }
+            if (this.isDead()) {
+                this.endbossDead();
+            } else if (this.isHurt()) {
+                this.endbossHurt();
+            } else if (this.isAttacking) {
+                this.endbossAttack();
+            } else {
+                this.endbossWalkImages(); 
+            }
+        }, 150);    
+      
+        this.setStoppableInterval(() => {
+            if (this.firstContactCompleted && !this.isDead() && !this.isHurt() && !this.isAttacking) {
+                this.endbossMove();
+            }
+        }, 1000 / 60);  
     }
-
+        
     handleFirstContact() {
         let i = 0;
-        let firstContact = this.setStoppableInterval(() => {
+        this.setStoppableInterval(() => {
             this.firstContact();
             if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
                 if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {
+                    if (i == 5){
+                        playSound('chicken', 'die');
+                    }
                     this.endbossEngreyImages();
                     i++;
                 } else {
                     this.engreyAnimationPlayed = true;
-                    clearInterval(firstContact);
                     this.bossAnimationFisrstContact = true;
-                    this.setStoppableInterval(() => this.endbossWalkImages(), 150);
-                    this.setStoppableInterval(() => this.endbossMove(), 1000 / 60);
+                    this.firstContactCompleted = true;
                 }
             }
         }, 250);
+    }
+
+
+    endbossWalk() {        
+        this.endbossWalkImages();        
+        this.endbossMove();
     }
 
     endbossMove() {
@@ -103,47 +131,47 @@ class Endboss extends MovableObject {
     }
 
     endbossEngreyImages() {
-        console.log(this.currentImage);
+        
         this.playAnimation(this.IMAGES_ENGREY);
     }
 
     endbossHurt() {
         if (this.isHurt()) {  
-            console.log(this.currentImage);      
-            this.playAnimation(this.IMAGES_HURT);
-            
+            playSound('chicken', 'die');         
+            this.playAnimation(this.IMAGES_HURT);          
         }
     }
 
     endbossAttack() {
         this.setStoppableInterval(() => {
-            console.log(this.currentImage);
+            playSound('chicken', 'attack');
             this.clearAllIntervals();
             this.bossAnimationFisrstContact = false;
             this.playAnimation(this.IMAGES_ATTACK);
-
-        }, 150);
+        }, 100);
 
     }
 
     endbossDead() {
-        if (this.isDead()) {
-            this.speed = 0;
-            clearInterval(this.intervalIds[0]);
-            clearInterval(this.intervalIds[1]);
-            clearInterval(this.intervalIds[3]);
-            clearInterval(this.intervalIds[4]);
-            this.playAnimationOnce(this.IMAGES_DEAD);
-            setInterval(() => {
-                this.y += 10;
-            }, 50);
-            winGame();
+       if (this.isDead()) {                                   
+            this.playAnimation(this.IMAGES_DEAD);
+            if (this.currentImage == this.IMAGES_DEAD.length) {
+                winGame();
+            }
+          setInterval(() => {
+              this.y += 1;
+         }, 100);
         }
     }
-
+ 
     firstContact() {
         if (world.character.x > 1500 && !this.hadFirstContact) {
             this.hadFirstContact = true;
         }
     }
+
+
 }
+
+
+

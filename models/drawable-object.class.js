@@ -14,14 +14,15 @@ class DrawableObject {
 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+    }   
 
     /**
-     * 
-     * @param {Array} arr - ['img/images1.png','img/images2.png', ...]
-     */
+    * 
+    * @param {Array} arr - ['img/images1.png','img/images2.png', ...]
+    */
     loadImages(arr) {
-        arr.forEach((path) => {            
+        arr.forEach((path) => {
+            
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
@@ -30,7 +31,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -48,6 +49,6 @@ class DrawableObject {
             ctx.stroke();
         }
     }
-    
+
 
 }

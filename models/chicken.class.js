@@ -55,7 +55,7 @@ class Chicken extends MovableObject {
         setInterval(() => {
             if (this.energy <= 0) {
                 
-                this.playAnimationOnce(this.IMAGES_DEAD);
+                this.playAnimation(this.IMAGES_DEAD);
                 this.speed = 0;
                 this.offset = {
                     top: 300,
