@@ -41,7 +41,7 @@ class StatusBottleBar extends DrawableObject{
     }
 
     collectBottle(index, bottle) {
-        if (this.bottles <= 4) {
+        if (this.bottles <= 3) {
             this.bottles++;
             this.setPercentage(this.bottles);
             bottle.splice(index, 1);

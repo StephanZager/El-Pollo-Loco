@@ -28,16 +28,16 @@ class SmallChicken extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 250 + Math.random() * 2500;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.20 + Math.random() * 0.25;        
         this.animate();
     }
 
     animate() {
         this.moveLeftChicken()
-        this.setStoppableInterval(() => this.walkChickenImages(), 200);
+        this.setStoppableInterval(() => this.walkChickenImages(), 200);        
         this.isDeadChicken();
     }
-
+    
     walkChickenImages() {
         this.playAnimation(this.IMAGES_WALK);
     }

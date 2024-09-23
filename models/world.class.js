@@ -1,5 +1,5 @@
 class World {
-
+    
     character = new Character();
     boss = new Endboss();
     level = level1;
@@ -87,7 +87,7 @@ class World {
         });
 
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingJumping(enemy) && this.character.y > 100) {
+            if (this.character.isCollidingJumping(enemy)) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     playSound('chicken', 'die');
                     enemy.hit();

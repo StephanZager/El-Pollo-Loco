@@ -43,7 +43,7 @@ class StatusCoinBar extends DrawableObject {
     }
 
     collectCoin(index, coin) {
-        if (this.coins <= 4) {
+        if (this.coins <= 3) {
             this.coins++;
             this.setPercentage(this.coins);
             coin.splice(index, 1);
