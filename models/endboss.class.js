@@ -100,7 +100,7 @@ class Endboss extends MovableObject {
         let i = 0;
         this.setStoppableInterval(() => {
             this.firstContact();
-            if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
+            if (this.hadFirstContact && !this.bossAnimationFisrstContact) {                
                 if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {                    
                     if (i == 5) {
                         playSound('chicken', 'die');

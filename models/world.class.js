@@ -87,12 +87,12 @@ class World {
         });
 
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
+            if (this.character.isCollidingJumping(enemy) && this.character.y > 100) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
-                    this.character.speedY = 5;
+                    this.character.speedY = 20;
                 }
             }
         });
