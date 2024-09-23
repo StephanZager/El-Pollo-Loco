@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    energy = 2200;
+    energy = 100;
     jumpSoundPlaying = false;
     jumpInterval = null;
     idleTimeout = null;
@@ -94,7 +94,7 @@ class Character extends MovableObject {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
         this.setStoppableInterval(() => this.stateAnimations(), 50);
-        this.setStoppableInterval(() => this.deadAnimation(), 120);
+        //this.setStoppableInterval(() => this.deadAnimation(), 160);
     }
 
     idleAnimation() {
@@ -145,7 +145,7 @@ class Character extends MovableObject {
 
     stateAnimations() {
         if (this.isDead()) {
-            return;
+            this.deadAnimation();
         } else if (this.isHurt()) {
             playSound('character', 'hurt');
             this.playAnimation(this.IMAGES_HURT);
