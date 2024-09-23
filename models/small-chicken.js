@@ -27,9 +27,9 @@ class SmallChicken extends MovableObject {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 200 + Math.random() * 2500;
+        this.x = 250 + Math.random() * 2500;
         this.speed = 0.15 + Math.random() * 0.25;
-        this.animate();        
+        this.animate();
     }
 
     animate() {
@@ -44,7 +44,7 @@ class SmallChicken extends MovableObject {
 
     moveLeftChicken() {
         setInterval(() => {
-            this.moveLeft();            
+            this.moveLeft();
         }, 1000 / 60);
     }
 

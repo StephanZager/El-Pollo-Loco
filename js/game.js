@@ -16,7 +16,7 @@ async function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
-
+    muteSounds();
     // image remove load screen
 }
 

@@ -82,7 +82,6 @@ class MovableObject extends DrawableObject {
     }
 
     noHit() {
-
         this.isNoHit = true;
         setTimeout(() => {
             this.isNoHit = false;
@@ -92,7 +91,6 @@ class MovableObject extends DrawableObject {
 
     hit() {
         if (!this.isNoHit) {
-
             this.energy -= 5;
             if (this.energy <= 0) {
                 this.energy = 0;
@@ -103,8 +101,6 @@ class MovableObject extends DrawableObject {
             }
         }
     }
-
-
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
