@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 300;
     y = 50;
-    x = 2000;
+    x = 3100;
     hadFirtstContact = false;
     firstContactCompleted = false;
     bossAnimationFisrstContact = false;
@@ -72,8 +72,8 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        this.handleFirstContact();   
-       
+        this.handleFirstContact();
+
         this.setStoppableInterval(() => {
             if (!this.firstContactCompleted) {
                 return;
@@ -85,24 +85,24 @@ class Endboss extends MovableObject {
             } else if (this.isAttacking) {
                 this.endbossAttack();
             } else {
-                this.endbossWalkImages(); 
+                this.endbossWalkImages();
             }
-        }, 150);    
-      
+        }, 150);
+
         this.setStoppableInterval(() => {
             if (this.firstContactCompleted && !this.isDead() && !this.isHurt() && !this.isAttacking) {
                 this.endbossMove();
             }
-        }, 1000 / 60);  
+        }, 1000 / 60);
     }
-        
+
     handleFirstContact() {
         let i = 0;
         this.setStoppableInterval(() => {
             this.firstContact();
             if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
-                if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {
-                    if (i == 5){
+                if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {                    
+                    if (i == 5) {
                         playSound('chicken', 'die');
                     }
                     this.endbossEngreyImages();
@@ -117,8 +117,8 @@ class Endboss extends MovableObject {
     }
 
 
-    endbossWalk() {        
-        this.endbossWalkImages();        
+    endbossWalk() {
+        this.endbossWalkImages();
         this.endbossMove();
     }
 
@@ -131,14 +131,14 @@ class Endboss extends MovableObject {
     }
 
     endbossEngreyImages() {
-        
+
         this.playAnimation(this.IMAGES_ENGREY);
     }
 
     endbossHurt() {
-        if (this.isHurt()) {  
-            playSound('chicken', 'die');         
-            this.playAnimation(this.IMAGES_HURT);          
+        if (this.isHurt()) {
+            playSound('chicken', 'die');
+            this.playAnimation(this.IMAGES_HURT);
         }
     }
 
@@ -146,26 +146,26 @@ class Endboss extends MovableObject {
         this.setStoppableInterval(() => {
             playSound('chicken', 'attack');
             this.clearAllIntervals();
-            this.bossAnimationFisrstContact = false;
+            //this.bossAnimationFisrstContact = false;
             this.playAnimation(this.IMAGES_ATTACK);
-        }, 100);
+        }, 80);
 
     }
 
     endbossDead() {
-       if (this.isDead()) {                                   
+        if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             if (this.currentImage == this.IMAGES_DEAD.length) {
                 winGame();
             }
-          setInterval(() => {
-              this.y += 1;
-         }, 100);
+            setInterval(() => {
+                this.y += 1;
+            }, 100);
         }
     }
- 
+
     firstContact() {
-        if (world.character.x > 1500 && !this.hadFirstContact) {
+        if (world.character.x > 2600 && !this.hadFirstContact) {
             this.hadFirstContact = true;
         }
     }

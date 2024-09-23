@@ -82,7 +82,7 @@ class MovableObject extends DrawableObject {
     }
 
     noHit() {
-       
+
         this.isNoHit = true;
         setTimeout(() => {
             this.isNoHit = false;
@@ -92,11 +92,11 @@ class MovableObject extends DrawableObject {
 
     hit() {
         if (!this.isNoHit) {
-            
+
             this.energy -= 5;
             if (this.energy <= 0) {
                 this.energy = 0;
-                this.currentImage = 0;                
+                this.currentImage = 0;
                 this.isNoHit = true;
             } else {
                 this.lastHit = new Date().getTime();
@@ -106,7 +106,7 @@ class MovableObject extends DrawableObject {
 
 
 
-    isHurt() {       
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.5;
@@ -114,13 +114,5 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
-    }
-
-    stopFalling() {
-        setTimeout(() => {
-            this.speedY = 0;
-            this.acceleration = 0;
-            this.clearAllIntervals();
-        }, 50);
     }
 }

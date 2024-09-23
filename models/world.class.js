@@ -88,7 +88,7 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy) && this.character.y > 80) {
-                if (enemy instanceof Chicken) {
+                if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
