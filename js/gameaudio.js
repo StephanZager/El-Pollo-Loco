@@ -1,7 +1,7 @@
 let muteSound = false;
 
 /**
- * json array with all the sounds.
+ * Json array with all the sounds.
  * 
  */
 
@@ -41,9 +41,9 @@ let sounds = {
 }
 
 /**
- * play sound
+ * Play sound.
  *   
- * @param {string} category - category of the sound in json array
+ * @param {string} category - Category of the sound in json array.
  * @param {string} sound  
  *   
  */
@@ -52,9 +52,9 @@ function playSound(category, sound) {
 }
 
 /**
- * stop sound
+ * Stop sound.
  *   
- * @param {string} category - category of the sound in json array
+ * @param {string} category - Category of the sound in json array.
  * @param {string} sound
  *    
  */
@@ -65,10 +65,9 @@ function stopSound(category, sound) {
 }
 
 /**
- * button for muting the sound in the canvas
+ * Button for muting the sound in the canvas.
  * 
  */
-
 function soundButton() {
     let soundButton = document.getElementById('soundButton');
 
@@ -84,7 +83,7 @@ function soundButton() {
 }
 
 /**
- * mute sound
+ * Mute sound.
  * 
  */
 function muteSounds() {
@@ -97,7 +96,7 @@ function muteSounds() {
 }
 
 /**
- * unmute sound
+ * Unmute sound.
  * 
  */
 function unmuteSounds() {

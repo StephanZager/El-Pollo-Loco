@@ -1,5 +1,9 @@
 let level1;
 
+/**
+ * Initialize level 1 with all the elements.
+ * 
+ */
 function initLevel1() {
     level1 = new Level(
         [
@@ -22,19 +26,19 @@ function initLevel1() {
             new Chicken(),
             new SmallChicken(),
             new Chicken(),
-            new SmallChicken(),                       
+            new SmallChicken(),
             new Endboss()
 
         ],
         [
             new Clouds(0),
             new Clouds(719),
-            new Clouds(719*2),
-            new Clouds(719*3),
-            new Clouds(719*4),
-            new Clouds(719*5),
-            new Clouds(719*6),
-            new Clouds(719*7),
+            new Clouds(719 * 2),
+            new Clouds(719 * 3),
+            new Clouds(719 * 4),
+            new Clouds(719 * 5),
+            new Clouds(719 * 6),
+            new Clouds(719 * 7),
         ],
         [
             new BackgroundObject('img/5_background/layers/air.png', -719),
@@ -71,7 +75,7 @@ function initLevel1() {
 
             new BackgroundObject('img/5_background/layers/air.png', 719 * 6),
             new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 719 * 6),
-            new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 *6),
+            new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 * 6),
             new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 6),
             new BackgroundObject('img/5_background/layers/air.png', 719 * 7),
             new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719 * 7),
@@ -90,7 +94,7 @@ function initLevel1() {
             new Coin(1293),
             new Coin(1743),
             new Coin(2300),
-           
+
         ],
         [
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 250, 330),

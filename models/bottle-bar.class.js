@@ -1,5 +1,5 @@
-class StatusBottleBar extends DrawableObject{
-    
+class StatusBottleBar extends DrawableObject {
+
     height = 40;
     width = 200;
 
@@ -11,21 +11,30 @@ class StatusBottleBar extends DrawableObject{
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png',
     ];
 
-    constructor(){
+    constructor() {
         super();
-        
         this.loadImages(this.IMAGES_BOTTLE_BAR);
         this.x = 20;
         this.y = 69;
         this.setPercentage(0);
     }
 
+    /**
+     * Set the percentage of the bottle bar.
+     * 
+     * @param {number} bottles - Number of bottles.
+     * 
+     */
     setPercentage(bottles) {
         this.bottles = bottles;
         let imagePath = this.IMAGES_BOTTLE_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 
+    /**
+     * Resolve the image index, for the bottle bar.
+     * 
+     */
     resolveImageIndex() {
         if (this.bottles >= 4) {
             return 4;
@@ -40,6 +49,14 @@ class StatusBottleBar extends DrawableObject{
         }
     }
 
+    /**
+    * Collects a bottle and updates the bottle count.
+    * 
+    * @param {number} index - The index of the bottle to be collected.
+    * @param {Array} bottle - The array containing the bottles.
+    * @returns {number} - The updated number of bottles collected.
+    * 
+    */
     collectBottle(index, bottle) {
         if (this.bottles >= 4) {
             stopSound('bottle', 'collect');
