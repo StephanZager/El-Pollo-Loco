@@ -1,3 +1,7 @@
+/**
+ * Represents the status bar for bottles in the game, showing the player's progress in collecting bottles.
+ *
+ */
 class StatusBottleBar extends DrawableObject {
 
     height = 40;
@@ -11,6 +15,11 @@ class StatusBottleBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png',
     ];
 
+    /**
+     * Creates an instance of StatusBottleBar.
+     * Initializes the bottle bar with default values and loads the images.
+     * 
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_BOTTLE_BAR);
