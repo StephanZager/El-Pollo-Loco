@@ -1,4 +1,9 @@
+/**
+ * Represents the character in the game.
+ * 
+ */
 class Character extends MovableObject {
+
     energy = 100;
     jumpSoundPlaying = false;
     jumpInterval = null;
@@ -77,6 +82,10 @@ class Character extends MovableObject {
     ];
     world;
 
+    /**
+     * Creates an instance of Character.
+     * 
+     */
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.currentImage = 0;
@@ -88,68 +97,98 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
-    }
+    };
 
+    /**
+     * Sets up the animation intervals for the character.
+     * 
+     */
     animate() {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
         this.setStoppableInterval(() => this.stateAnimations(), 50);
-    }
+    };
 
+    /**
+     * Handles the idle animation of the character.
+     * 
+     */
     idleAnimation() {
         let currentTime = new Date().getTime();
         if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
             if (this.idle) {
                 this.playAnimation(this.IMAGES_IDEL_LONG);
                 playSound('character', 'long_idle');
-
             } else {
                 stopSound('character', 'long_idle');
                 this.playAnimation(this.IMAGES_IDEL);
-
-                if (!this.idleStartTime) {
-                    this.idleStartTime = currentTime;
-                } else if (currentTime - this.idleStartTime >= 10000) {
-                    this.idle = true;
-                }
+                this.checkIdleState(currentTime);
             }
         } else {
             this.idleStartTime = null;
             this.idle = false;
         }
-    }
+    };
 
+    /**
+     * Checks and updates the idle state of the character.
+     * @param {number} currentTime - The current time in milliseconds.
+     * 
+     */
+    checkIdleState(currentTime) {
+        if (!this.idleStartTime) {
+            this.idleStartTime = currentTime;
+        } else if (currentTime - this.idleStartTime >= 10000) {
+            this.idle = true;
+        }
+    };
+
+    /**
+     * Handles the character's movements based on keyboard input.
+     * 
+     */
     characterMovements() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
+            this.updateIdleState(false);
             this.otherDirection = false;
-            this.idle = false;
-            this.idleStartTime = null;
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
+            this.updateIdleState(false);
             this.otherDirection = true;
-            this.idle = false;
-            this.idleStartTime = null;
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
-            this.idle = false;
+            this.updateIdleState(false);
+        }
+
+        this.world.camera_x = -this.x + 100;
+    };
+
+    /**
+     * Updates the idle state of the character.
+     * @param {boolean} isIdle - Indicates if the character is idle.
+     * 
+     */
+    updateIdleState(isIdle) {
+        this.idle = isIdle;
+        if (!isIdle) {
             this.idleStartTime = null;
         }
-        this.world.camera_x = -this.x + 100;
-    }
+    };
 
-
-
+    /**
+     * Handles the state animations of the character.
+     * 
+     */
     stateAnimations() {
         if (this.isDead()) {
             this.deadAnimation();
         } else if (this.isHurt()) {
             playSound('character', 'hurt');
-
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
             if (!this.jumpSoundPlaying) {
@@ -164,8 +203,12 @@ class Character extends MovableObject {
             }
             this.jumpSoundPlaying = false;
         }
-    }
+    };
 
+    /**
+     * Handles the dead animation of the character.
+     * 
+     */
     deadAnimation() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_Dead);
@@ -181,10 +224,13 @@ class Character extends MovableObject {
             this.y -= 5;
             this.y += 8;
         }
-    }
+    };
 
+    /**
+     * Updates the jump animation of the character
+     * .
+     */
     updateJumpAnimation() {
-
         if (this.speedY > 0) {
             if (this.currentImage > 3) {
                 this.currentImage = 3;
@@ -201,7 +247,6 @@ class Character extends MovableObject {
             }
         }
         this.playAnimation(this.IMAGES_JUMPING);
-
-    }
+    };
 
 }
