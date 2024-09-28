@@ -43,8 +43,8 @@ let sounds = {
 /**
  * play sound
  *   
- * @param {string} category 
- * @param {string} sound 
+ * @param {string} category - category of the sound in json array
+ * @param {string} sound  
  *   
  */
 function playSound(category, sound) {
@@ -54,7 +54,7 @@ function playSound(category, sound) {
 /**
  * stop sound
  *   
- * @param {string} category 
+ * @param {string} category - category of the sound in json array
  * @param {string} sound
  *    
  */
