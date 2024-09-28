@@ -7,7 +7,6 @@ class Bottle extends MovableObject {
     height = 100;
     width = 80;
 
-
     /**
      * Creates an instance of Bottle.
      * 
