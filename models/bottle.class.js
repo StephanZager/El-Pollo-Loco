@@ -24,6 +24,6 @@ class Bottle extends MovableObject {
             bottom: 10,
             left: 30,
             right: 30,
-        }
-    }
+        };
+    };
 }

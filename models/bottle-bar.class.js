@@ -26,7 +26,7 @@ class StatusBottleBar extends DrawableObject {
         this.x = 20;
         this.y = 69;
         this.setPercentage(0);
-    }
+    };
 
     /**
      * Set the percentage of the bottle bar.
@@ -38,7 +38,7 @@ class StatusBottleBar extends DrawableObject {
         this.bottles = bottles;
         let imagePath = this.IMAGES_BOTTLE_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
-    }
+    };
 
     /**
      * Resolve the image index, for the bottle bar.
@@ -56,7 +56,7 @@ class StatusBottleBar extends DrawableObject {
         } else {
             return 0;
         }
-    }
+    };
 
     /**
     * Collects a bottle and updates the bottle count.
@@ -76,5 +76,5 @@ class StatusBottleBar extends DrawableObject {
             bottle.splice(index, 1);
             return this.bottles;
         }
-    }
+    };
 }

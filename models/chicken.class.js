@@ -33,7 +33,7 @@ class Chicken extends MovableObject {
         this.x = 250 + Math.random() * 2500;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-    }
+    };
 
     /**
      * Animates the chicken by moving it to the left and playing the walking animation.
@@ -43,7 +43,7 @@ class Chicken extends MovableObject {
         this.moveLeftChicken()
         this.setStoppableInterval(() => this.walkChickenImages(), 200);
         this.isDeadChicken();
-    }
+    };
 
     /**
      * Plays the walking animation for the chicken.
@@ -51,7 +51,7 @@ class Chicken extends MovableObject {
      */
     walkChickenImages() {
         this.playAnimation(this.IMAGES_WALK);
-    }
+    };
 
     /**
      * Moves the chicken to the left.
@@ -61,7 +61,7 @@ class Chicken extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-    }
+    };
 
     /**
      * Checks if the chicken is dead and plays the dead animation if it is.
@@ -84,5 +84,5 @@ class Chicken extends MovableObject {
                 }, 300);
             }
         }, 40);
-    }
+    };
 }

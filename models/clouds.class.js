@@ -19,7 +19,7 @@ class Clouds extends MovableObject {
         super().loadImage('img/5_background/layers/4_clouds/1.png');
         this.x = x;
         this.animate();
-    }
+    };
 
     /**
      * Animates the clouds by moving them to the left.
@@ -29,5 +29,5 @@ class Clouds extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-    }
+    };
 }

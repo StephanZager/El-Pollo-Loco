@@ -26,7 +26,7 @@ class StatusCoinBar extends DrawableObject {
         this.x = 20;
         this.y = 30;
         this.setPercentage(0);
-    }
+    };
     
     /**
      * Sets the percentage of the coin status bar based on the number of coins.
@@ -37,7 +37,7 @@ class StatusCoinBar extends DrawableObject {
         this.coins = coins;
         let imagePath = this.IMAGES_COIN_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
-    }
+    };
 
     /**
      * Resolves the image index based on the number of coins.
@@ -56,7 +56,7 @@ class StatusCoinBar extends DrawableObject {
         } else {
             return 0;
         }
-    }
+    };
 
     /**
      * Collects a coin and updates the status bar.
@@ -76,5 +76,5 @@ class StatusCoinBar extends DrawableObject {
             coin.splice(index, 1);
             return this.coins;
         }
-    }
+    };
 }

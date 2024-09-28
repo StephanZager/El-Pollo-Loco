@@ -21,6 +21,6 @@ class Coin extends MovableObject {
             bottom: 30,
             left: 30,
             right: 30,
-        }
-    }
+        };
+    };
 }
