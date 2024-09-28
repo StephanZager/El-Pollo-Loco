@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-    world;
+    world;    
     energy = 20;
     height = 400;
     width = 300;
@@ -60,8 +60,7 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/3_attack/G20.png',
     ];
 
-    constructor() {
-
+    constructor() {        
         super().loadImage(this.IMAGES_ENGREY[0]);
         this.loadImages(this.IMAGES_ENGREY);
         this.loadImages(this.IMAGES_WALK);
@@ -101,7 +100,7 @@ class Endboss extends MovableObject {
         this.setStoppableInterval(() => {
             this.firstContact();
             if (this.hadFirstContact && !this.bossAnimationFisrstContact) {                
-                if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {                    
+                if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {
                     if (i == 5) {
                         playSound('chicken', 'die');
                     }

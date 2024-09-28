@@ -2,7 +2,7 @@ class Chicken extends MovableObject {
     energy = 5;
     height = 80;
     width = 70;
-    y = 350;
+    y = 346;
 
     IMAGES_WALK = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -26,10 +26,10 @@ class Chicken extends MovableObject {
         this.animate();
 
         this.offset = {
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
+            top: 1,
+            bottom: 1,
+            left: 1,
+            right: 1,
         }
     }
 

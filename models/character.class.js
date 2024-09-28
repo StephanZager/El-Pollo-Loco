@@ -7,10 +7,10 @@ class Character extends MovableObject {
     height = 250;
     speed = 5;
     offset = {
-        top: 120,
+        top: 0,
         bottom: 0,
-        left: 10,
-        right: 10,
+        left: 20,
+        right: 20,
     }
 
     IMAGES_WALK = [
@@ -76,7 +76,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
     world;
-    
+
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.currentImage = 0;
@@ -93,19 +93,20 @@ class Character extends MovableObject {
     animate() {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
-        this.setStoppableInterval(() => this.stateAnimations(), 50);
-        //this.setStoppableInterval(() => this.deadAnimation(), 160);
+        this.setStoppableInterval(() => this.stateAnimations(), 50);        
     }
 
     idleAnimation() {
         let currentTime = new Date().getTime();
-        if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE) {
+        if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
             if (this.idle) {
                 this.playAnimation(this.IMAGES_IDEL_LONG);
                 playSound('character', 'long_idle');
+                console.log('long idle', this.currentImage);
             } else {
                 stopSound('character', 'long_idle');
                 this.playAnimation(this.IMAGES_IDEL);
+                console.log('idle', this.currentImage);
                 if (!this.idleStartTime) {
                     this.idleStartTime = currentTime;
                 } else if (currentTime - this.idleStartTime >= 10000) {
@@ -144,10 +145,11 @@ class Character extends MovableObject {
 
 
     stateAnimations() {
-        if (this.isDead()) {
+        if (this.isDead()) {            
             this.deadAnimation();
         } else if (this.isHurt()) {
             playSound('character', 'hurt');
+            
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
             if (!this.jumpSoundPlaying) {
@@ -165,19 +167,24 @@ class Character extends MovableObject {
     }
 
     deadAnimation() {
-        if (this.isDead()) {
-            console.log(this.currentImage);
-            this.playAnimation(this.IMAGES_Dead);
+        if (this.isDead()) {           
+                this.playAnimation(this.IMAGES_Dead);               
+                //this.isNoHit = true;
             if (this.currentImage == this.IMAGES_Dead.length) {
                 lostGame();
+            } else {
+                setTimeout(() => {
+                    lostGame();
+                }, 2000);
             }
             this.speed = 0;
-            this.y -= 100;
-            this.y += 120;
+            this.y -= 5;
+            this.y += 8;
         }
     }
 
     updateJumpAnimation() {
+        
         if (this.speedY > 0) {
             if (this.currentImage > 3) {
                 this.currentImage = 3;
@@ -188,8 +195,8 @@ class Character extends MovableObject {
                     this.currentImage = 7;
                 }
             } else {
-                if (this.currentImage > this.IMAGES_JUMPING.length - 1) {
-                    this.currentImage = this.IMAGES_JUMPING.length - 1;
+                if (this.currentImage > this.IMAGES_JUMPING.length) {
+                    this.currentImage = this.IMAGES_JUMPING.length;
                 }
             }
         }

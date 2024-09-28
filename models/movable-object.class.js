@@ -29,6 +29,11 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+
+                if (!(this instanceof ThrowableObject) && this.y > 180) {
+                    this.y = 180;
+                    this.speedY = 0;
+                }
             }
         }, 1000 / 25);
     }
@@ -36,10 +41,13 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
+        } else if (this.isDead()) {
+            return false;
         } else {
-            return this.y < 180
+            return this.y < 180;
         }
     }
+
 
     isColliding(mo) {
         return (
@@ -90,14 +98,15 @@ class MovableObject extends DrawableObject {
 
 
     hit() {
-        if (!this.isNoHit) {
+        let currentTime = new Date().getTime();
+        if (!this.isNoHit && (currentTime - this.lastHit >= 300)) {
             this.energy -= 5;
             if (this.energy <= 0) {
                 this.energy = 0;
                 this.currentImage = 0;
                 this.isNoHit = true;
             } else {
-                this.lastHit = new Date().getTime();
+                this.lastHit = currentTime;
             }
         }
     }

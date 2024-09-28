@@ -92,7 +92,7 @@ class World {
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
-                    this.character.speedY = 20;
+                    this.character.speedY = 20;                   
                 }
             }
         });
@@ -115,6 +115,7 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();                
                 this.statusBar.setPercentage(this.character.energy);
+                //this.character.noHit();
             }
         });
     }

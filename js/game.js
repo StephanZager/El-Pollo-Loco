@@ -5,29 +5,26 @@ let background = new Image();
 let movableObjects = new MovableObject();
 
 
-
-
-
 async function init() {
+    checkOrientation();
 
-    // image for the load screen
     initLevel1();
-
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
+    checkMobileDevice();
     muteSounds();
-    // image remove load screen
+
 }
 
 async function startGame() {
     await init();
     let canvasScreen = document.getElementById('canvas');
     let startScreen = document.getElementById('startScreen');
+    document.getElementById('button-right-top').style.display = 'flex';
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');
     playSound('game', 'game');
-
 }
 
 function lostGame() {
@@ -43,7 +40,9 @@ function lostGame() {
         window.clearInterval(i);
     }
 
-
+    setTimeout(() => {
+        document.getElementById('resumeMenuGame').style.display = 'flex';
+    }, 2000);
 };
 
 function winGame() {
@@ -56,6 +55,33 @@ function winGame() {
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);
     }
+    setTimeout(() => {
+        document.getElementById('resumeMenuGame').style.display = 'flex';
+    }, 2000);
+}
+
+function restartGame() {
+    document.getElementById('lostGame').style.display = 'none';
+    document.getElementById('wonGame').style.display = 'none';
+    document.getElementById('resumeMenuGame').style.display = 'none';
+    startGame();
+}
+
+function totheMenu(){   
+   
+    movableObjects.clearAllIntervals();
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+
+    let canvasScreen = document.getElementById('canvas');
+    let startScreen = document.getElementById('startScreen');
+    document.getElementById('button-right-top').style.display = 'none';
+    document.getElementById('lostGame').style.display = 'none';
+    document.getElementById('wonGame').style.display = 'none';
+    document.getElementById('resumeMenuGame').style.display = 'none';
+    startScreen.classList.remove('d-none');
+    canvasScreen.classList.add('d-none');
 }
 
 function showSteering() {
@@ -92,12 +118,42 @@ function showImpressum() {
     returMenu.style.display = 'flex';
 }
 
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
+function checkMobileDevice() {
+    if (isMobileDevice()) {
+        document.getElementById('button-bottom-mobile').style.display = 'flex';
+        document.getElementById('button-right-top').style.display = 'flex';
+    } else {
+        document.getElementById('button-bottom-mobile').style.display = 'none';
+        document.getElementById('button-right-top').style.display = 'none';
+    }
+}
 
+function checkOrientation() {
+    if (isMobileDevice()) {
+        if (window.innerHeight > window.innerWidth) {
+            document.getElementById('rotationMobile').style.display = 'flex';
+            document.getElementById('menuSection').style.display = 'none';
+            document.getElementById('canvasScreen').style.display = 'none';
+        } else {
+            document.getElementById('rotationMobile').style.display = 'none';
+            document.getElementById('menuSection').style.display = 'flex';
+            document.getElementById('canvasScreen').style.display = 'flex';
+        }
+    } else {
+        document.getElementById('rotationMobile').style.display = 'none';
+        document.getElementById('menuSection').style.display = 'flex';
+        document.getElementById('canvasScreen').style.display = 'flex';
+    }
+}
 
-
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+});
 
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
@@ -156,12 +212,14 @@ window.addEventListener('keyup', (event) => {
 // Event-Listener für Touch-Steuerung
 
 document.addEventListener('DOMContentLoaded', () => {
+
     const leftButton = document.getElementById('left-button');
     const rightButton = document.getElementById('right-button');
     const upButton = document.getElementById('up-button');
     const throwButton = document.getElementById('throw-button');
     const soundButton = document.getElementById('soundButton');
     const menuButton = document.querySelector('#button-right-top img[src="img/10_Menu/mobile/menu.png"]');
+
 
     function preventDefault(event) {
         event.preventDefault();
@@ -234,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (menuButton) {
         menuButton.addEventListener('touchstart', (event) => {
-            menuButton.click(); // Simuliert einen Klick
+            menuButton.click();
             preventDefault(event);
         });
 
