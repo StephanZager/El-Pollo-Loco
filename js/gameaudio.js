@@ -38,7 +38,7 @@ let sounds = {
         collect: new Audio('audio/bottle_collect.mp3'),
         crack: new Audio('audio/bottle_crack.mp3'),
     },
-}
+};
 
 /**
  * Play sound if it is not already playing.
@@ -56,7 +56,7 @@ function playSound(category, sound) {
             }
         });
     }
-}
+};
 
 /**
  * Stop sound if it is playing.
@@ -70,7 +70,7 @@ function stopSound(category, sound) {
         audio.pause();
         audio.currentTime = 0;
     }
-}
+};
 /**
  * Button for muting the sound in the canvas.
  * 
@@ -87,7 +87,7 @@ function soundButton() {
         muteSound = false;
         soundButton.classList.remove('muted');
     }
-}
+};
 
 /**
  * Mute sound.
@@ -100,7 +100,7 @@ function muteSounds() {
             audio.muted = true;
         }
     }
-}
+};
 
 /**
  * Unmute sound.
@@ -113,4 +113,4 @@ function unmuteSounds() {
             audio.muted = false;
         }
     }
-}
+};

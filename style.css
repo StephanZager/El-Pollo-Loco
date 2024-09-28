@@ -151,6 +151,28 @@ canvas {
 
 /*Menu*/
 
+#rotationMobile {
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#rotationMobile p {
+   font-size: 30px;
+}
+
+.img-steering {
+    width: 30px;
+    height: 30px;
+}
+
+.individual-elements-control {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
 h1 {
     font-size: 60px;
     letter-spacing: 4px;
@@ -232,7 +254,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .steering span {
@@ -418,7 +440,7 @@ p {
     }
 }
 
-@media only screen and (max-height: 480px) {
+@media only screen and (max-height: 485px) {
 
     canvas {
         height: 100vh;
@@ -429,7 +451,7 @@ p {
     }
 }
 
-@media only screen and (max-height: 430px) {
+@media only screen and (max-height: 485px) {
     .start_screen {
         height: 200px;
     }
