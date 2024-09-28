@@ -77,6 +77,7 @@ function totheMenu(){
     let canvasScreen = document.getElementById('canvas');
     let startScreen = document.getElementById('startScreen');
     document.getElementById('button-right-top').style.display = 'none';
+    document.getElementById('button-bottom-mobile').style.display = 'none';
     document.getElementById('lostGame').style.display = 'none';
     document.getElementById('wonGame').style.display = 'none';
     document.getElementById('resumeMenuGame').style.display = 'none';
