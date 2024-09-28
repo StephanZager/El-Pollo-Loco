@@ -41,29 +41,36 @@ let sounds = {
 }
 
 /**
- * Play sound.
- *   
+ * Play sound if it is not already playing.
+ * 
  * @param {string} category - Category of the sound in json array.
- * @param {string} sound  
- *   
+ * 
  */
 function playSound(category, sound) {
-    sounds[category][sound].play();
+    let audio = sounds[category][sound];
+    if (audio.paused) {
+        audio.play().catch(error => {
+            if (error.name === 'AbortError') {
+            } else {
+                console.error('Error playing sound:', error);
+            }
+        });
+    }
 }
 
 /**
- * Stop sound.
- *   
+ * Stop sound if it is playing.
+ * 
  * @param {string} category - Category of the sound in json array.
- * @param {string} sound
- *    
+ * 
  */
 function stopSound(category, sound) {
-    sounds[category][sound].pause();
-    sounds[category][sound].currentTime = 0;
-
+    let audio = sounds[category][sound];
+    if (!audio.paused) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
 }
-
 /**
  * Button for muting the sound in the canvas.
  * 
