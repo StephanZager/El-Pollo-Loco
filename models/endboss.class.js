@@ -1,5 +1,9 @@
+/**
+ * Represents the end boss in the game.
+ * 
+ */
 class Endboss extends MovableObject {
-    world;    
+    world;
     energy = 20;
     height = 400;
     width = 300;
@@ -60,7 +64,11 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/3_attack/G20.png',
     ];
 
-    constructor() {        
+    /**
+     * Creates an instance of Endboss.
+     * 
+     */
+    constructor() {
         super().loadImage(this.IMAGES_ENGREY[0]);
         this.loadImages(this.IMAGES_ENGREY);
         this.loadImages(this.IMAGES_WALK);
@@ -68,11 +76,23 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.animate();
-    }
+    };
 
+    /**
+     * Animates the end boss.
+     * 
+     */
     animate() {
         this.handleFirstContact();
+        this.startAnimationIntervals();
+        this.startMovementInterval();
+    };
 
+    /**
+     * Starts the animation intervals for the end boss.
+     * 
+     */
+    startAnimationIntervals() {
         this.setStoppableInterval(() => {
             if (!this.firstContactCompleted) {
                 return;
@@ -87,72 +107,123 @@ class Endboss extends MovableObject {
                 this.endbossWalkImages();
             }
         }, 160);
+    };
 
+    /**
+     * Starts the movement interval for the end boss.
+     * 
+     */
+    startMovementInterval() {
         this.setStoppableInterval(() => {
             if (this.firstContactCompleted && !this.isDead() && !this.isHurt() && !this.isAttacking) {
                 this.endbossMove();
             }
         }, 1000 / 60);
-    }
+    };
 
+    /**
+     * Character the first contact with the end boss.
+     * 
+     */
     handleFirstContact() {
         let i = 0;
         this.setStoppableInterval(() => {
             this.firstContact();
-            if (this.hadFirstContact && !this.bossAnimationFisrstContact) {                
+            if (this.hadFirstContact && !this.bossAnimationFisrstContact) {
                 if (!this.engreyAnimationPlayed && i < this.IMAGES_ENGREY.length) {
-                    stopSound('game', 'game');
-                    playSound('enboss', 'showdown');
-                    playSound('enboss', 'first');
+                    this.playFirstContactSounds();
                     if (i == 5) {
                         playSound('chicken', 'die');
                     }
                     this.endbossEngreyImages();
                     i++;
                 } else {
-                    this.engreyAnimationPlayed = true;
-                    this.bossAnimationFisrstContact = true;
-                    this.firstContactCompleted = true;
+                    this.setFirstContactFlags();
                 }
             }
         }, 250);
-    }
+    };
 
+    /**
+     * Plays the sounds for the first contact with the end boss.
+     * 
+     */
+    playFirstContactSounds() {
+        stopSound('game', 'game');
+        playSound('enboss', 'showdown');
+        playSound('enboss', 'first');
+    };
 
+    /**
+     * Sets the flags indicating the first contact with the end boss is completed.
+     * 
+     */
+    setFirstContactFlags() {
+        this.engreyAnimationPlayed = true;
+        this.bossAnimationFisrstContact = true;
+        this.firstContactCompleted = true;
+    };
+
+    /**
+     * Handles the walking animation and movement of the end boss.
+     * 
+     */
     endbossWalk() {
         this.endbossWalkImages();
         this.endbossMove();
-    }
+    };
 
+    /**
+     * Moves the end boss to the left.
+     * 
+     */
     endbossMove() {
         this.moveLeft();
-    }
+    };
 
+    /**
+     * Plays the walking animation for the end boss.
+     * 
+     */
     endbossWalkImages() {
         this.playAnimation(this.IMAGES_WALK);
-    }
+    };
 
+    /**
+     * Plays the energy animation for the end boss.
+     * 
+     */
     endbossEngreyImages() {
-
         this.playAnimation(this.IMAGES_ENGREY);
-    }
+    };
 
+    /**
+     * Plays the hurt animation for the end boss.
+     * 
+     */
     endbossHurt() {
         if (this.isHurt()) {
             playSound('chicken', 'die');
             this.playAnimation(this.IMAGES_HURT);
         }
-    }
+    };
 
+    /**
+     * Plays the attack animation for the end boss.
+     * 
+     */
     endbossAttack() {
         this.setStoppableInterval(() => {
             playSound('chicken', 'attack');
-            this.clearAllIntervals();            
+            this.clearAllIntervals();
             this.playAnimation(this.IMAGES_ATTACK);
         }, 80);
+    };
 
-    }
-
+    /**
+     * Plays the dead animation for the end boss.
+     * 
+     */
     endbossDead() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -164,15 +235,17 @@ class Endboss extends MovableObject {
                 this.y += 1;
             }, 100);
         }
-    }
+    };
 
+    /**
+     * Checks if the first contact with the end boss has occurred.
+     * 
+     */
     firstContact() {
         if (world.character.x > 2600 && !this.hadFirstContact) {
             this.hadFirstContact = true;
         }
-    }
-
-
+    };
 }
 
 

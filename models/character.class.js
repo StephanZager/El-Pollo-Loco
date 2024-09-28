@@ -6,8 +6,6 @@ class Character extends MovableObject {
 
     energy = 100;
     jumpSoundPlaying = false;
-    jumpInterval = null;
-    idleTimeout = null;
     y = 180;
     height = 250;
     speed = 5;
