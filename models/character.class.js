@@ -93,7 +93,7 @@ class Character extends MovableObject {
     animate() {
         this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
         this.setStoppableInterval(() => this.idleAnimation(), 600);
-        this.setStoppableInterval(() => this.stateAnimations(), 50);        
+        this.setStoppableInterval(() => this.stateAnimations(), 50);
     }
 
     idleAnimation() {
@@ -102,11 +102,11 @@ class Character extends MovableObject {
             if (this.idle) {
                 this.playAnimation(this.IMAGES_IDEL_LONG);
                 playSound('character', 'long_idle');
-                console.log('long idle', this.currentImage);
+
             } else {
                 stopSound('character', 'long_idle');
                 this.playAnimation(this.IMAGES_IDEL);
-                console.log('idle', this.currentImage);
+
                 if (!this.idleStartTime) {
                     this.idleStartTime = currentTime;
                 } else if (currentTime - this.idleStartTime >= 10000) {
@@ -145,11 +145,11 @@ class Character extends MovableObject {
 
 
     stateAnimations() {
-        if (this.isDead()) {            
+        if (this.isDead()) {
             this.deadAnimation();
         } else if (this.isHurt()) {
             playSound('character', 'hurt');
-            
+
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isAboveGround()) {
             if (!this.jumpSoundPlaying) {
@@ -167,9 +167,9 @@ class Character extends MovableObject {
     }
 
     deadAnimation() {
-        if (this.isDead()) {           
-                this.playAnimation(this.IMAGES_Dead);               
-                playSound('character', 'die');
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_Dead);
+            playSound('character', 'die');
             if (this.currentImage == this.IMAGES_Dead.length) {
                 lostGame();
             } else {
@@ -184,7 +184,7 @@ class Character extends MovableObject {
     }
 
     updateJumpAnimation() {
-        
+
         if (this.speedY > 0) {
             if (this.currentImage > 3) {
                 this.currentImage = 3;

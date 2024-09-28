@@ -1,3 +1,7 @@
+/**
+ * Represents the status bar for coins in the game.
+ * 
+ */
 class StatusCoinBar extends DrawableObject {
 
     height = 40;
@@ -11,23 +15,35 @@ class StatusCoinBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
     ];
 
-
-
+    /**
+     * Creates an instance of StatusCoinBar.
+     * Initializes the status bar with default values and loads the images.
+     * 
+     */
     constructor() {
         super();
-
         this.loadImages(this.IMAGES_COIN_BAR);
         this.x = 20;
         this.y = 30;
         this.setPercentage(0);
     }
-
+    
+    /**
+     * Sets the percentage of the coin status bar based on the number of coins.
+     * @param {number} coins - The number of coins collected.
+     * 
+     */
     setPercentage(coins) {
         this.coins = coins;
         let imagePath = this.IMAGES_COIN_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 
+    /**
+     * Resolves the image index based on the number of coins.
+     * @returns {number} The index of the image to be displayed.
+     * 
+     */
     resolveImageIndex() {
         if (this.coins >= 4) {
             return 4;
@@ -42,6 +58,14 @@ class StatusCoinBar extends DrawableObject {
         }
     }
 
+    /**
+     * Collects a coin and updates the status bar.
+     * 
+     * @param {number} index - The index of the coin in the array.
+     * @param {Array} coin - The array of coins.
+     * @returns {number} The updated number of coins.
+     * 
+     */
     collectCoin(index, coin) {
         if (this.coins >= 4) {
             stopSound('coin', 'collect');
@@ -53,5 +77,4 @@ class StatusCoinBar extends DrawableObject {
             return this.coins;
         }
     }
-
 }
