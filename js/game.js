@@ -13,7 +13,7 @@ async function init() {
     world = new World(canvas, keyboard);
 
     checkMobileDevice();
-    muteSounds();
+    
 
 }
 
@@ -22,12 +22,14 @@ async function startGame() {
     let canvasScreen = document.getElementById('canvas');
     let startScreen = document.getElementById('startScreen');
     document.getElementById('button-right-top').style.display = 'flex';
+    document.getElementById('headline').style.display = 'none';   
     startScreen.classList.add('d-none');
     canvasScreen.classList.remove('d-none');
     playSound('game', 'game');
 }
 
 function lostGame() {
+    stopSound('enboss', 'showdown');
     stopSound('game', 'game');
     playSound('game', 'gameOver');
 
@@ -46,7 +48,7 @@ function lostGame() {
 };
 
 function winGame() {
-    stopSound('game', 'game');
+    stopSound('enboss', 'showdown');
     playSound('game', 'gameWon');
     let wonGame = document.getElementById('wonGame');
     wonGame.style.display = 'flex';
@@ -64,11 +66,20 @@ function restartGame() {
     document.getElementById('lostGame').style.display = 'none';
     document.getElementById('wonGame').style.display = 'none';
     document.getElementById('resumeMenuGame').style.display = 'none';
+    stopSound('game', 'gameOver');
+    stopSound('game', 'gameWon');
+    stopSound('game', 'game');
+    stopSound('enboss', 'showdown');
     startGame();
 }
 
-function totheMenu(){   
-   
+function totheMenu() {
+    document.getElementById('headline').style.display = 'flex';
+    stopSound('game', 'gameOver');
+    stopSound('game', 'gameWon');
+    stopSound('game', 'game');
+    stopSound('enboss', 'showdown');
+
     movableObjects.clearAllIntervals();
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);
@@ -81,6 +92,7 @@ function totheMenu(){
     document.getElementById('lostGame').style.display = 'none';
     document.getElementById('wonGame').style.display = 'none';
     document.getElementById('resumeMenuGame').style.display = 'none';
+   
     startScreen.classList.remove('d-none');
     canvasScreen.classList.add('d-none');
 }
@@ -125,9 +137,11 @@ function isMobileDevice() {
 
 function checkMobileDevice() {
     if (isMobileDevice()) {
+        document.body.classList.add('mobile-device');
         document.getElementById('button-bottom-mobile').style.display = 'flex';
         document.getElementById('button-right-top').style.display = 'flex';
     } else {
+        document.body.classList.remove('mobile-device');
         document.getElementById('button-bottom-mobile').style.display = 'none';
         document.getElementById('button-right-top').style.display = 'none';
     }
@@ -150,6 +164,8 @@ function checkOrientation() {
         document.getElementById('canvasScreen').style.display = 'flex';
     }
 }
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     checkOrientation();

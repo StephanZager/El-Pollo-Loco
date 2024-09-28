@@ -1,5 +1,5 @@
 class World {
-    
+
     character = new Character();
     boss = new Endboss();
     level = level1;
@@ -15,7 +15,7 @@ class World {
 
 
     constructor(canvas) {
-        
+
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -43,7 +43,10 @@ class World {
     checkCoinObject() {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
+
+
                 playSound('coin', 'collect');
+
                 this.coinBar.collectCoin(index, this.level.coin);  // hier überge ich this. .. weil cih dann nicht drauf zuggeifen kann                                                                               
             }
         });
@@ -89,18 +92,20 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy)) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+                    stopSound('chicken', 'die');
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
-                    this.character.speedY = 20;                   
+                    this.character.speedY = 20;
                 }
             }
         });
 
         this.throwableObject.forEach((bottle, bottleIndex) => {
             this.level.enemies.forEach((enemy, index) => {
-                if (bottle.isColliding(enemy)) {  
-                    playSound('bottle', 'crack');                                   
+                if (bottle.isColliding(enemy)) {
+                    stopSound('bottle', 'crack');
+                    playSound('bottle', 'crack');
                     enemy.hit();
                     enemy.noHit();
                     bottle.bottleSplash();
@@ -113,9 +118,9 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();                
+                this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-                //this.character.noHit();
+               
             }
         });
     }

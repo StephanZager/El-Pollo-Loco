@@ -1,6 +1,6 @@
 class StatusCoinBar extends DrawableObject {
 
-    height = 60;
+    height = 40;
     width = 200;
 
     IMAGES_COIN_BAR = [
@@ -11,14 +11,14 @@ class StatusCoinBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
     ];
 
-    
+
 
     constructor() {
         super();
 
         this.loadImages(this.IMAGES_COIN_BAR);
         this.x = 20;
-        this.y = 40;
+        this.y = 30;
         this.setPercentage(0);
     }
 
@@ -43,6 +43,9 @@ class StatusCoinBar extends DrawableObject {
     }
 
     collectCoin(index, coin) {
+        if (this.coins >= 4) {
+            stopSound('coin', 'collect');
+        }
         if (this.coins <= 3) {
             this.coins++;
             this.setPercentage(this.coins);

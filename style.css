@@ -20,6 +20,8 @@ body {
 /*canvas */
 
 #canvasScreen {
+    display: flex;
+    justify-content: center;
     position: relative;
     /* Stellt sicher, dass der Container relativ positioniert ist */
 }
@@ -174,7 +176,7 @@ h1 {
     border: 4px solid #ffdb04;
     background-color: #fcab3c;
     border-radius: 10px;
-    box-shadow: 0px 15px 40px rgba(0, 0, 0, 22.778);
+
 
 }
 
@@ -324,6 +326,11 @@ p {
     margin-top: 20px;
 }
 
+.menu-section {
+    overflow: hidden;
+    align-items: center;
+}
+
 
 /*Won or Lost screen*/
 
@@ -381,7 +388,43 @@ p {
     ;
 }
 
+.mobile-device {
+
+
+    #canvasScreen {
+        height: 100vh;
+        justify-content: center;
+    }
+
+       
+    #canvasScreen {
+        width: 100%;
+        height: 100vh;
+    }
+
+    canvas {
+        width: 100%;
+    }
+
+    .menu-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #buttonContainer button {
+        padding: 8px;
+        font-size: 0.9rem;
+
+    }
+
+    .mobile-img-button {
+        width: 30px;
+    }
+}
+
 @media only screen and (max-width: 720px) {
+
     #canvasScreen {
         width: 100%;
     }
@@ -391,7 +434,6 @@ p {
     }
 
     .menu-section {
-        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -411,7 +453,10 @@ p {
 
 }
 
+
+
 @media only screen and (max-height: 480px) {
+    
     canvas {
         height: 100vh;
     }
@@ -420,9 +465,12 @@ p {
         height: 100vh;
     }
 
-    .menu-section {
-        height: 100vh;
+   
+
+}
+
+@media only screen and (max-height: 430px) {
+    .start_screen {
+        height: 200px;
     }
-
-
 }

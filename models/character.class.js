@@ -7,7 +7,7 @@ class Character extends MovableObject {
     height = 250;
     speed = 5;
     offset = {
-        top: 0,
+        top: 50,
         bottom: 0,
         left: 20,
         right: 20,
@@ -169,7 +169,7 @@ class Character extends MovableObject {
     deadAnimation() {
         if (this.isDead()) {           
                 this.playAnimation(this.IMAGES_Dead);               
-                //this.isNoHit = true;
+                playSound('character', 'die');
             if (this.currentImage == this.IMAGES_Dead.length) {
                 lostGame();
             } else {

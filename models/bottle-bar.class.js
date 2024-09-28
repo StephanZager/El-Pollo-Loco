@@ -1,6 +1,6 @@
 class StatusBottleBar extends DrawableObject{
     
-    height = 60;
+    height = 40;
     width = 200;
 
     IMAGES_BOTTLE_BAR = [
@@ -16,7 +16,7 @@ class StatusBottleBar extends DrawableObject{
         
         this.loadImages(this.IMAGES_BOTTLE_BAR);
         this.x = 20;
-        this.y = 80;
+        this.y = 69;
         this.setPercentage(0);
     }
 
@@ -41,6 +41,9 @@ class StatusBottleBar extends DrawableObject{
     }
 
     collectBottle(index, bottle) {
+        if (this.bottles >= 4) {
+            stopSound('bottle', 'collect');
+        }
         if (this.bottles <= 3) {
             this.bottles++;
             this.setPercentage(this.bottles);
