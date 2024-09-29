@@ -341,7 +341,6 @@ window.addEventListener('keyup', (event) => {
  * Event listener for the mobile device.
  * 
 */
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const leftButton = document.getElementById('left-button');
