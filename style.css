@@ -30,7 +30,7 @@ canvas {
 
 /*mobile button*/
 
-#button-bottom-mobile {
+#buttonBottomMobile {
     display: flex;
     position: absolute;
     justify-content: space-between;
@@ -51,7 +51,7 @@ canvas {
     gap: 40px;
 }
 
-#button-right-top {
+#buttonRightTop {
     gap: 10px;
     display: flex;
     position: absolute;
@@ -274,6 +274,7 @@ p {
 }
 
 .under-menu {
+    justify-content: space-between;
     box-sizing: border-box;
     padding: 10px;
     display: flex;
@@ -304,12 +305,13 @@ p {
     display: none;
 }
 
-#impressum {
+#impressum {    
     overflow-x: auto;
     z-index: 2;
     display: flex;
     flex-direction: column;
     color: white;
+    
 }
 
 #impressum h1 {

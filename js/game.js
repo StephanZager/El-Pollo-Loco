@@ -35,7 +35,7 @@ function startGame() {
     init();
     showCanvasScreen();
 
-    let buttonTop = document.getElementById('button-right-top');
+    let buttonTop = document.getElementById('buttonRightTop');
     let headline = document.getElementById('headline');
 
     buttonTop.style.display = 'flex';
@@ -153,8 +153,8 @@ function showStartScreen() {
  * 
  */
 function hideToTheMenuElements() {
-    document.getElementById('button-right-top').style.display = 'none';
-    document.getElementById('button-bottom-mobile').style.display = 'none';
+    document.getElementById('buttonRightTop').style.display = 'none';
+    document.getElementById('buttonBottomMobile').style.display = 'none';
     document.getElementById('lostGame').style.display = 'none';
     document.getElementById('wonGame').style.display = 'none';
     document.getElementById('resumeMenuGame').style.display = 'none';
@@ -235,12 +235,12 @@ function isMobileDevice() {
 function checkMobileDevice() {
     if (isMobileDevice()) {
         document.body.classList.add('mobile-device');
-        document.getElementById('button-bottom-mobile').style.display = 'flex';
-        document.getElementById('button-right-top').style.display = 'flex';
+        document.getElementById('buttonBottomMobile').style.display = 'flex';
+        document.getElementById('buttonRightTop').style.display = 'flex';
     } else {
         document.body.classList.remove('mobile-device');
-        document.getElementById('button-bottom-mobile').style.display = 'none';
-        document.getElementById('button-right-top').style.display = 'none';
+        document.getElementById('buttonBottomMobile').style.display = 'none';
+        document.getElementById('buttonRightTop').style.display = 'none';
     }
 };
 
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const upButton = document.getElementById('up-button');
     const throwButton = document.getElementById('throw-button');
     const soundButton = document.getElementById('soundButton');
-    const menuButton = document.querySelector('#button-right-top img[src="img/10_Menu/mobile/menu.png"]');
+    const menuButton = document.querySelector('#buttonRightTop img[src="img/10_Menu/mobile/menu.png"]');
 
 
     function preventDefault(event) {
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         upButton.addEventListener('touchend', (event) => {
-            keyboard.SPACE = false; 
+            keyboard.SPACE = false;
             preventDefault(event);
         });
 
