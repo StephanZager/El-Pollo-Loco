@@ -4,7 +4,7 @@
  */
 class Endboss extends MovableObject {
     world;
-    energy = 20;
+    energy = 30;
     height = 400;
     width = 300;
     y = 50;
@@ -13,7 +13,7 @@ class Endboss extends MovableObject {
     firstContactCompleted = false;
     bossAnimationFisrstContact = false;
     engreyAnimationPlayed = false;
-    speed = 2;
+    speed = 4;
     currentImage = 0;
     offset = {
         top: 50,

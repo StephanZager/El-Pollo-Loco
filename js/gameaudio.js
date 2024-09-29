@@ -1,5 +1,5 @@
 let muteSound = false;
-let audioVolume = 0.2;
+let audioVolume = 0.1;
 
 /**
  * Json array with all the sounds.
@@ -73,6 +73,7 @@ function stopSound(category, sound) {
         audio.currentTime = 0;
     }
 };
+
 /**
  * Button for muting the sound in the canvas.
  * 
@@ -84,15 +85,17 @@ function soundButton() {
         muteSounds();
         muteSound = true;
         soundButton.classList.add('muted');
+        localStorage.setItem('muteSound', 'true');
     } else {
         unmuteSounds();
         muteSound = false;
         soundButton.classList.remove('muted');
+        localStorage.setItem('muteSound', 'false');
     }
-};
+}
 
 /**
- * Mute sound.
+ * Mute sound and save the status in localStorage.
  * 
  */
 function muteSounds() {
@@ -102,10 +105,11 @@ function muteSounds() {
             audio.muted = true;
         }
     }
-};
+    localStorage.setItem('soundsMuted', 'true');
+}
 
 /**
- * Unmute sound.
+ * Unmute sound and save the status in localStorage.
  * 
  */
 function unmuteSounds() {
@@ -115,4 +119,30 @@ function unmuteSounds() {
             audio.muted = false;
         }
     }
-};
+    localStorage.setItem('soundsMuted', 'false');
+}
+
+/**
+ * Restore the mute status and button state from localStorage.
+ * 
+ */
+function restoreSoundButtonState() {
+    let soundButton = document.getElementById('soundButton');
+    const muteSoundStatus = localStorage.getItem('muteSound');
+
+    if (muteSoundStatus === 'true') {
+        muteSounds();
+        muteSound = true;
+        soundButton.classList.add('muted');
+    } else {
+        unmuteSounds();
+        muteSound = false;
+        soundButton.classList.remove('muted');
+    }
+}
+
+/**
+ * Set the volume of the audio.
+ * 
+ */
+document.addEventListener('DOMContentLoaded', restoreSoundButtonState);

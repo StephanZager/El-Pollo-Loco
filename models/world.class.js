@@ -128,7 +128,7 @@ class World {
                     enemy.clearAllIntervals();
                     enemy.animate();
                     enemy.hadFirtstContact = false;
-                    enemy.speed = 2 + Math.random() * 0.25;
+                    enemy.speed = 4 + Math.random() * 0.25;
                 }
             }
         });
