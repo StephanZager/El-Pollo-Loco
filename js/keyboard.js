@@ -161,3 +161,5 @@ document.addEventListener('DOMContentLoaded', () => {
         menuButton.addEventListener('contextmenu', preventDefault);
     }
 });
+
+

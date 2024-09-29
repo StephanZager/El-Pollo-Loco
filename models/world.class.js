@@ -13,6 +13,7 @@ class World {
     bottleBar = new StatusBottleBar();
     throwableObject = [];
     keyboard;
+    lastBottleThrown = false;
 
     /**
      * The canvas rendering context.
@@ -98,22 +99,31 @@ class World {
         });
     };
 
+
     /**
-     * Checks if the character throws a bottle.
-     * 
-     */
+    * Checks if the character throws a bottle.
+    * The character can only throw a bottle if they are not hurt and have bottles available.
+    * The bottle is thrown only once per key press.
+    * 
+    */
     checkThrowObject() {
+
         if (this.character.isHurt()) {
             return;
         }
 
-        if (this.keyboard.D && this.bottleBar.bottles > 0) {
+        if (this.keyboard.D && this.bottleBar.bottles > 0 && !this.lastBottleThrown) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             playSound('bottle', 'throw');
             this.throwableObject.push(bottle);
             this.bottleBar.setPercentage(this.bottleBar.bottles - 1);
+            this.lastBottleThrown = true;
         }
-    }
+
+        if (!this.keyboard.D) {
+            this.lastBottleThrown = false;
+        }
+    };
 
     /**
      * Checks for collisions between the character and enemies.
@@ -143,14 +153,14 @@ class World {
     * 
     */
     checkCharacterJumpingCollision() {
-        this.level.enemies.forEach((enemy) => {           
+        this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingJumping(enemy) && this.character.speedY < 0) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     stopSound('chicken', 'die');
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
-                    this.character.speedY = 20; 
+                    this.character.speedY = 20;
                 }
             }
         });
@@ -184,12 +194,16 @@ class World {
     updateCharacterStatusBar() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
+                if (enemy instanceof Endboss) {
+                    this.character.hitEndboss();
+                }
+                else {
+                    this.character.hit();
+                }
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
     };
-
 
     /**
      * Draws the game world on the canvas.
