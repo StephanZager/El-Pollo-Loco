@@ -13,7 +13,7 @@ class Endboss extends MovableObject {
     firstContactCompleted = false;
     bossAnimationFisrstContact = false;
     engreyAnimationPlayed = false;
-    speed = 4;
+    speed = 4.5;
     currentImage = 0;
     offset = {
         top: 50,
