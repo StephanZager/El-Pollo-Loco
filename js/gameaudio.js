@@ -1,4 +1,5 @@
 let muteSound = false;
+let audioVolume = 0.2;
 
 /**
  * Json array with all the sounds.
@@ -48,6 +49,7 @@ let sounds = {
  */
 function playSound(category, sound) {
     let audio = sounds[category][sound];
+    audio.volume = audioVolume;
     if (audio.paused) {
         audio.play().catch(error => {
             if (error.name === 'AbortError') {
