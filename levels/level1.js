@@ -82,19 +82,11 @@ function initLevel1() {
             new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719 * 7),
             new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 7)
         ],
-        [
-            new Coin(499),
-            new Coin(596),
+        [                       
             new Coin(223),
-            new Coin(976),
-            new Coin(1056),
-            new Coin(2499),
+            new Coin(976),                     
             new Coin(1999),
-            new Coin(1539),
-            new Coin(1293),
-            new Coin(1743),
-            new Coin(2300),
-
+            new Coin(1539),                
         ],
         [
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 250, 330),

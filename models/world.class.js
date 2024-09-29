@@ -103,13 +103,17 @@ class World {
      * 
      */
     checkThrowObject() {
+        if (this.character.isHurt()) {
+            return;
+        }
+
         if (this.keyboard.D && this.bottleBar.bottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             playSound('bottle', 'throw');
             this.throwableObject.push(bottle);
             this.bottleBar.setPercentage(this.bottleBar.bottles - 1);
-        };
-    };
+        }
+    }
 
     /**
      * Checks for collisions between the character and enemies.
@@ -128,25 +132,25 @@ class World {
                     enemy.clearAllIntervals();
                     enemy.animate();
                     enemy.hadFirtstContact = false;
-                    enemy.speed = 4 + Math.random() * 0.25;
+                    enemy.speed = 3 + Math.random() * 0.25;
                 }
             }
         });
     };
 
     /**
-     * Checks for collisions between the character and enemies when jumping.
-     * 
-     */
+    * Checks for collisions between the character and enemies when jumping.
+    * 
+    */
     checkCharacterJumpingCollision() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingJumping(enemy)) {
+        this.level.enemies.forEach((enemy) => {           
+            if (this.character.isCollidingJumping(enemy) && this.character.speedY < 0) {
                 if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
                     stopSound('chicken', 'die');
                     playSound('chicken', 'die');
                     enemy.hit();
                     this.character.noHit();
-                    this.character.speedY = 20;
+                    this.character.speedY = 20; 
                 }
             }
         });
@@ -185,6 +189,7 @@ class World {
             }
         });
     };
+
 
     /**
      * Draws the game world on the canvas.

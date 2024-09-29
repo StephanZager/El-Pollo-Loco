@@ -29,7 +29,7 @@ class ThrowableObject extends MovableObject {
      * @param {number} y - The y-coordinate of the throwable object.
      * 
      */
-    constructor(x, y) {
+    constructor(x, y, world) {
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_SPLASH);
@@ -42,9 +42,8 @@ class ThrowableObject extends MovableObject {
     };
 
     /**
-     * Throws the object by setting its initial speed and applying gravity.
-     * 
-     */
+    * Throws the object by setting its initial speed and applying gravity.
+    */
     throw() {
         this.speedY = 30;
         this.applyGravity();
@@ -52,7 +51,6 @@ class ThrowableObject extends MovableObject {
             this.x += 10;
         }, 25);
         this.setStoppableInterval(() => this.bottleRotation(), 80);
-
     };
 
     /**
