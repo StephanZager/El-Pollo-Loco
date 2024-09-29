@@ -289,12 +289,12 @@ p {
 
 }
 
-.test {
+.menu-button {
     z-index: 1;
     letter-spacing: 2px;
 }
 
-.test:hover {
+.menu-button:hover {
     padding: 0px;
     color: #ffdb04;
     cursor: pointer;
