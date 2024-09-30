@@ -145,22 +145,16 @@ class MovableObject extends DrawableObject {
     };
 
     /**
-     * Reduces the object's energy when hit.
-     * 
-     */
+    * Reduces the object's energy when hit.
+    * 
+    */
     hit() {
         let currentTime = new Date().getTime();
         if (!this.isNoHit && (currentTime - this.lastHit >= 300)) {
             this.energy -= 5;
-            if (this.energy <= 0) {
-                this.energy = 0;
-                this.currentImage = 0;
-                this.isNoHit = true;
-            } else {
-                this.lastHit = currentTime;
-            };
-        };
-    };
+            this.handleHitResult(currentTime);
+        }
+    }
 
     /**
      * Reduces the object's energy when Endboss hit.
@@ -170,15 +164,24 @@ class MovableObject extends DrawableObject {
         let currentTime = new Date().getTime();
         if (!this.isNoHit && (currentTime - this.lastHit >= 300)) {
             this.energy -= 10;
-            if (this.energy <= 0) {
-                this.energy = 0;
-                this.currentImage = 0;
-                this.isNoHit = true;
-            } else {
-                this.lastHit = currentTime;
-            };
-        };
-    };
+            this.handleHitResult(currentTime);
+        }
+    }
+
+    /**
+     * Handles the result of a hit, updating energy and hit status.
+     * @param {number} currentTime - The current time in milliseconds.
+     * 
+     */
+    handleHitResult(currentTime) {
+        if (this.energy <= 0) {
+            this.energy = 0;
+            this.currentImage = 0;
+            this.isNoHit = true;
+        } else {
+            this.lastHit = currentTime;
+        }
+    }
 
     /**
      * Checks if the object is hurt.
