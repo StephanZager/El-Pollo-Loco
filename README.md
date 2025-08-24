@@ -1,43 +1,43 @@
 # El Pollo Loco
 
-Willkommen zum Projekt "El Pollo Loco"!
+Welcome to the "El Pollo Loco" project!
 
-## Projektbeschreibung
+## Project Description
 
-Dieses Spiel ist ein Jump'n'Run, inspiriert von klassischen Plattformern. Ziel ist es, Hindernisse zu überwinden, Gegner zu besiegen und Münzen sowie Flaschen zu sammeln. Die Steuerung erfolgt über Tastatur und/oder Touch.
+This game is a jump'n'run inspired by classic platformers. The goal is to overcome obstacles, defeat enemies, and collect coins and bottles. Controls are via keyboard and/or touch.
 
 ## Features
-- Verschiedene Level und Gegner
-- Soundeffekte und Musik
-- Responsive Design für Desktop und Mobile
-- Dokumentierter JavaScript-Code
+- Multiple levels and enemies
+- Sound effects and music
+- Responsive design for desktop and mobile
+- Well-documented JavaScript code
 
 ## Installation
-1. Repository klonen:
+1. Clone the repository:
    ```powershell
    git clone <REPO-URL>
    ```
-2. In das Projektverzeichnis wechseln:
+2. Change into the project directory:
    ```powershell
    cd El-Pollo-Loco
    ```
-3. Abhängigkeiten installieren:
+3. Install dependencies:
    ```powershell
    npm install
    ```
 
-## Dokumentation
-Die technische Dokumentation des JavaScript-Codes findest du im Ordner [`docs`](docs/index.html).
+## Documentation
+The technical documentation of the JavaScript code can be found in the [`docs`](docs/index.html) folder.
 
-Öffne einfach die Datei `docs/index.html` im Browser, um die generierte Dokumentation zu sehen.
+Simply open the file `docs/index.html` in your browser to view the generated documentation.
 
-## Online-Dokumentation
-Die technische Dokumentation ist auch online verfügbar über GitHub Pages:
+## Online Documentation
+The technical documentation is also available online via GitHub Pages:
 
-[Live-Dokumentation auf GitHub Pages](https://StephanZager.github.io/El-Pollo-Loco/docs/index.html)
+[Live documentation on GitHub Pages](https://StephanZager.github.io/El-Pollo-Loco/docs/index.html)
 
-## Mitmachen
-Pull Requests und Issues sind willkommen!
+## Contributing
+Pull requests and issues are welcome!
 
-## Lizenz
-Dieses Projekt steht unter einer freien Lizenz. Siehe LICENSE-Datei für Details.
+## License
+This project is released under a free license. See the LICENSE file for details.
