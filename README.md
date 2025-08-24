@@ -15,7 +15,7 @@ This game is a jump'n'run inspired by classic platformers. The goal is to overco
 ## Installation
 1. Clone the repository:
    ```powershell
-   git clone <REPO-URL>
+   git clone (https://github.com/StephanZager/El-Pollo-Loco.git)
    ```
 2. Change into the project directory:
    ```powershell
