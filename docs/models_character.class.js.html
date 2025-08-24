@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/character.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/character.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Represents the character in the game.
+ * 
+ */
+class Character extends MovableObject {
+
+    energy = 100;
+    jumpSoundPlaying = false;
+    y = 180;
+    height = 250;
+    speed = 5;
+    offset = {
+        top: 50,
+        bottom: 0,
+        left: 20,
+        right: 20,
+    }
+
+    IMAGES_WALK = [
+        'img/2_character_pepe/2_walk/W-21.png',
+        'img/2_character_pepe/2_walk/W-22.png',
+        'img/2_character_pepe/2_walk/W-23.png',
+        'img/2_character_pepe/2_walk/W-24.png',
+        'img/2_character_pepe/2_walk/W-25.png',
+        'img/2_character_pepe/2_walk/W-26.png'
+    ];
+
+    IMAGES_JUMPING = [
+        'img/2_character_pepe/3_jump/J-31.png',
+        'img/2_character_pepe/3_jump/J-32.png',
+        'img/2_character_pepe/3_jump/J-33.png',
+        'img/2_character_pepe/3_jump/J-34.png',
+        'img/2_character_pepe/3_jump/J-35.png',
+        'img/2_character_pepe/3_jump/J-36.png',
+        'img/2_character_pepe/3_jump/J-37.png',
+        'img/2_character_pepe/3_jump/J-37.png',
+        'img/2_character_pepe/3_jump/J-39.png'
+    ];
+
+    IMAGES_Dead = [
+        'img/2_character_pepe/5_dead/D-51.png',
+        'img/2_character_pepe/5_dead/D-52.png',
+        'img/2_character_pepe/5_dead/D-53.png',
+        'img/2_character_pepe/5_dead/D-54.png',
+        'img/2_character_pepe/5_dead/D-55.png',
+        'img/2_character_pepe/5_dead/D-56.png',
+        'img/2_character_pepe/5_dead/D-57.png',
+    ];
+
+    IMAGES_HURT = [
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png'
+    ];
+
+    IMAGES_IDEL = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+
+    IMAGES_IDEL_LONG = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
+    world;
+
+    /**
+     * Creates an instance of Character.
+     * 
+     */
+    constructor() {
+        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        this.currentImage = 0;
+        this.loadImages(this.IMAGES_IDEL);
+        this.loadImages(this.IMAGES_IDEL_LONG);
+        this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_Dead);
+        this.loadImages(this.IMAGES_HURT);
+        this.applyGravity();
+        this.animate();
+    };
+
+    /**
+     * Sets up the animation intervals for the character.
+     * 
+     */
+    animate() {
+        this.setStoppableInterval(() => this.characterMovements(), 1000 / 60);
+        this.setStoppableInterval(() => this.idleAnimation(), 600);
+        this.setStoppableInterval(() => this.stateAnimations(), 50);
+    };
+
+    /**
+     * Handles the idle animation of the character.
+     * 
+     */
+    idleAnimation() {
+        let currentTime = new Date().getTime();
+        if (!this.world.keyboard.RIGHT &amp;&amp; !this.world.keyboard.LEFT &amp;&amp; !this.world.keyboard.SPACE &amp;&amp; !this.isAboveGround() &amp;&amp; !this.isDead() &amp;&amp; !this.isHurt()) {
+            if (this.idle) {
+                this.playAnimation(this.IMAGES_IDEL_LONG);
+                playSound('character', 'long_idle');
+            } else {
+                stopSound('character', 'long_idle');
+                this.playAnimation(this.IMAGES_IDEL);
+                this.checkIdleState(currentTime);
+            }
+        } else {
+            this.idleStartTime = null;
+            this.idle = false;
+        }
+    };
+
+    /**
+     * Checks and updates the idle state of the character.
+     * @param {number} currentTime - The current time in milliseconds.
+     * 
+     */
+    checkIdleState(currentTime) {
+        if (!this.idleStartTime) {
+            this.idleStartTime = currentTime;
+        } else if (currentTime - this.idleStartTime >= 10000) {
+            this.idle = true;
+        }
+    };
+
+    /**
+     * Handles the character's movements based on keyboard input.
+     * 
+     */
+    characterMovements() {
+        if (this.world.keyboard.RIGHT &amp;&amp; this.x &lt; this.world.level.level_end_x) {
+            this.moveRight();
+            this.updateIdleState(false);
+            this.otherDirection = false;
+        }
+
+        if (this.world.keyboard.LEFT &amp;&amp; this.x > 0) {
+            this.moveLeft();
+            this.updateIdleState(false);
+            this.otherDirection = true;
+        }
+
+        if (this.world.keyboard.SPACE &amp;&amp; !this.isAboveGround()) {
+            this.jump();
+            this.updateIdleState(false);
+        }
+
+        this.world.camera_x = -this.x + 100;
+    };
+
+    /**
+     * Updates the idle state of the character.
+     * @param {boolean} isIdle - Indicates if the character is idle.
+     * 
+     */
+    updateIdleState(isIdle) {
+        this.idle = isIdle;
+        if (!isIdle) {
+            this.idleStartTime = null;
+        }
+    };
+
+    /**
+     * Handles the state animations of the character.
+     * 
+     */
+    stateAnimations() {
+        if (this.isDead()) {
+            this.deadAnimation();
+        } else if (this.isHurt()) {
+            playSound('character', 'hurt');
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            if (!this.jumpSoundPlaying) {
+                playSound('character', 'jump');
+                this.jumpSoundPlaying = true;
+            }
+            this.updateJumpAnimation();
+        } else {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALK);
+                playSound('character', 'walking');
+            }
+            this.jumpSoundPlaying = false;
+        }
+    };
+
+    /**
+     * Handles the dead animation of the character.
+     * 
+     */
+    deadAnimation() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_Dead);
+            playSound('character', 'die');
+            if (this.currentImage == this.IMAGES_Dead.length) {
+                lostGame();
+            } else {
+                setTimeout(() => {
+                    lostGame();
+                }, 2000);
+            }
+            this.speed = 0;
+            this.y -= 5;
+            this.y += 8;
+        }
+    };
+
+    /**
+     * Updates the jump animation of the character
+     * .
+     */
+    updateJumpAnimation() {
+        if (this.speedY > 0) {
+            if (this.currentImage > 3) {
+                this.currentImage = 3;
+            }
+        } else {
+            if (this.speedY > -30) {
+                if (this.currentImage > 4) {
+                    this.currentImage = 7;
+                }
+            } else {
+                if (this.currentImage > this.IMAGES_JUMPING.length) {
+                    this.currentImage = this.IMAGES_JUMPING.length;
+                }
+            }
+        }
+        this.playAnimation(this.IMAGES_JUMPING);
+    };
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Clouds.html">Clouds</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBottleBar.html">StatusBottleBar</a></li><li><a href="StatusCoinBar.html">StatusCoinBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkMobileDevice">checkMobileDevice</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#clearAllGameIntervals">clearAllGameIntervals</a></li><li><a href="global.html#hideRestartGameElements">hideRestartGameElements</a></li><li><a href="global.html#hideToTheMenuElements">hideToTheMenuElements</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileDevice">isMobileDevice</a></li><li><a href="global.html#lostGame">lostGame</a></li><li><a href="global.html#lostGameSound">lostGameSound</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#playWinSounds">playWinSounds</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#restoreSoundButtonState">restoreSoundButtonState</a></li><li><a href="global.html#returnMenu">returnMenu</a></li><li><a href="global.html#showCanvasScreen">showCanvasScreen</a></li><li><a href="global.html#showImpressum">showImpressum</a></li><li><a href="global.html#showStartScreen">showStartScreen</a></li><li><a href="global.html#showSteering">showSteering</a></li><li><a href="global.html#soundButton">soundButton</a></li><li><a href="global.html#sounds">sounds</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopGameSoundsMenu">stopGameSoundsMenu</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#totheMenu">totheMenu</a></li><li><a href="global.html#unmuteSounds">unmuteSounds</a></li><li><a href="global.html#winGame">winGame</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Aug 24 2025 13:06:27 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

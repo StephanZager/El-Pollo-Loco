@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let canvas;
+let world;
+let keyboard = new Keyboard();
+let background = new Image();
+let movableObjects = new MovableObject();
+
+/**
+ * Initializes the game.
+ * 
+ */
+function init() {
+    checkOrientation();
+    initLevel1();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+    checkMobileDevice();
+};
+
+/**
+ * Switches to the canvas screen and hides the start screen.
+ * 
+ */
+function showCanvasScreen() {
+    let canvasScreen = document.getElementById('canvas');
+    let startScreen = document.getElementById('startScreen');
+    startScreen.classList.add('d-none');
+    canvasScreen.classList.remove('d-none');
+}
+
+/**
+ * Starts the game.
+ * 
+ */
+function startGame() {
+    init();
+    showCanvasScreen();
+
+    let buttonTop = document.getElementById('buttonRightTop');
+    let headline = document.getElementById('headline');
+
+    buttonTop.style.display = 'flex';
+    headline.style.display = 'none';
+
+    playSound('game', 'game');
+}
+
+/**
+ * Handles the game over scenario.
+ * 
+ */
+function lostGame() {
+    let lostGame = document.getElementById('lostGame');
+    lostGame.style.display = 'flex';
+
+    lostGameSound();
+    clearAllGameIntervals();
+
+    setTimeout(() => {
+        document.getElementById('resumeMenuGame').style.display = 'flex';
+    }, 2000);
+};
+
+/**
+ * Clears all intervals in the game.
+ * 
+ */
+function clearAllGameIntervals() {
+    movableObjects.clearAllIntervals();
+    for (let i = 1; i &lt; 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+/**
+ * Plays and Stop the sound for losing the game.
+ * 
+ */
+function lostGameSound() {
+    stopSound('enboss', 'showdown');
+    stopSound('game', 'game');
+    playSound('game', 'gameOver');
+};
+
+/**
+ * Handles the game win scenario.
+ * 
+ */
+function winGame() {
+    let wonGame = document.getElementById('wonGame');
+    wonGame.style.display = 'flex';
+
+    playWinSounds();
+    clearAllGameIntervals();
+
+    setTimeout(() => {
+        document.getElementById('resumeMenuGame').style.display = 'flex';
+    }, 2000);
+};
+
+/**
+ * Plays the sounds for winning the game.
+ * 
+ */
+function playWinSounds() {
+    stopSound('enboss', 'showdown');
+    playSound('game', 'gameWon');
+};
+
+/**
+ * Hides game-related UI elements.
+ * 
+ */
+function hideRestartGameElements() {
+    document.getElementById('lostGame').style.display = 'none';
+    document.getElementById('wonGame').style.display = 'none';
+    document.getElementById('resumeMenuGame').style.display = 'none';
+};
+
+/**
+ * Restarts the game.
+ * 
+ */
+function restartGame() {
+    hideRestartGameElements();
+    stopGameSoundsMenu();
+    startGame();
+};
+
+/**
+ * Stops all game sounds for the Menu.
+ * 
+ */
+function stopGameSoundsMenu() {
+    stopSound('game', 'gameOver');
+    stopSound('game', 'gameWon');
+    stopSound('game', 'game');
+    stopSound('enboss', 'showdown');
+    stopSound('character', 'long_idle');
+};
+
+/**
+ * Switches to the start screen and hides the canvas screen.
+ */
+function showStartScreen() {
+    let canvasScreen = document.getElementById('canvas');
+    let startScreen = document.getElementById('startScreen');
+    startScreen.classList.remove('d-none');
+    canvasScreen.classList.add('d-none');
+};
+
+/**
+ * Hides game-related UI elements.
+ * 
+ */
+function hideToTheMenuElements() {
+    document.getElementById('buttonRightTop').style.display = 'none';
+    document.getElementById('buttonBottomMobile').style.display = 'none';
+    document.getElementById('lostGame').style.display = 'none';
+    document.getElementById('wonGame').style.display = 'none';
+    document.getElementById('resumeMenuGame').style.display = 'none';
+};
+
+/**
+ * Handles the transition to the menu.
+ * 
+ */
+function totheMenu() {
+    showStartScreen();
+    stopGameSoundsMenu();
+    clearAllGameIntervals();
+    hideToTheMenuElements();
+
+    document.getElementById('headline').style.display = 'flex';
+};
+
+/**
+ * Shows the steering menu.
+ * 
+ */
+function showSteering() {
+    let navBar = document.getElementById('menuBar');
+    let steering = document.getElementById('menuSteering');
+    let returMenu = document.getElementById('menuReturn');
+
+    steering.style.display = 'flex';
+    navBar.style.display = 'none';
+    returMenu.style.display = 'flex';
+};
+
+/**
+ * Returns to the main menu.
+ * 
+ */
+function returnMenu() {
+    let impressum = document.getElementById('impressum');
+
+    let navBar = document.getElementById('menuBar');
+    let steering = document.getElementById('menuSteering');
+    let returMenu = document.getElementById('menuReturn');
+
+    impressum.style.display = 'none';
+    steering.style.display = 'none';
+    navBar.style.display = 'flex';
+    returMenu.style.display = 'none';
+};
+
+/**
+ * Shows the impressum menu.
+ * 
+ */
+function showImpressum() {
+    let navBar = document.getElementById('menuBar');
+    let impressum = document.getElementById('impressum');
+    let returMenu = document.getElementById('menuReturn');
+
+    impressum.style.display = 'flex';
+    navBar.style.display = 'none';
+    returMenu.style.display = 'flex';
+};
+
+
+/**
+ * Checks if the device is a mobile device.
+ * @returns {boolean} True if the device is a mobile device, false otherwise.
+ * 
+ */
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+/**
+ * Checks if the device is a mobile device and adjusts the UI accordingly.
+ * 
+ */
+function checkMobileDevice() {
+    if (isMobileDevice()) {
+        document.body.classList.add('mobile-device');
+        document.getElementById('buttonBottomMobile').style.display = 'flex';
+        document.getElementById('buttonRightTop').style.display = 'flex';
+    } else {
+        document.body.classList.remove('mobile-device');
+        document.getElementById('buttonBottomMobile').style.display = 'none';
+        document.getElementById('buttonRightTop').style.display = 'none';
+    }
+};
+
+/**
+ * Checks the orientation of the device and adjusts the UI accordingly.
+ * 
+ */
+function checkOrientation() {
+    if (isMobileDevice()) {
+        if (window.innerHeight > window.innerWidth) {
+            document.getElementById('rotationMobile').style.display = 'flex';
+            document.getElementById('menuSection').style.display = 'none';
+            document.getElementById('canvasScreen').style.display = 'none';
+        } else {
+            document.getElementById('rotationMobile').style.display = 'none';
+            document.getElementById('menuSection').style.display = 'flex';
+            document.getElementById('canvasScreen').style.display = 'flex';
+        }
+    } else {
+        document.getElementById('rotationMobile').style.display = 'none';
+        document.getElementById('menuSection').style.display = 'flex';
+        document.getElementById('canvasScreen').style.display = 'flex';
+    }
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Clouds.html">Clouds</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBottleBar.html">StatusBottleBar</a></li><li><a href="StatusCoinBar.html">StatusCoinBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkMobileDevice">checkMobileDevice</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#clearAllGameIntervals">clearAllGameIntervals</a></li><li><a href="global.html#hideRestartGameElements">hideRestartGameElements</a></li><li><a href="global.html#hideToTheMenuElements">hideToTheMenuElements</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileDevice">isMobileDevice</a></li><li><a href="global.html#lostGame">lostGame</a></li><li><a href="global.html#lostGameSound">lostGameSound</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#playWinSounds">playWinSounds</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#restoreSoundButtonState">restoreSoundButtonState</a></li><li><a href="global.html#returnMenu">returnMenu</a></li><li><a href="global.html#showCanvasScreen">showCanvasScreen</a></li><li><a href="global.html#showImpressum">showImpressum</a></li><li><a href="global.html#showStartScreen">showStartScreen</a></li><li><a href="global.html#showSteering">showSteering</a></li><li><a href="global.html#soundButton">soundButton</a></li><li><a href="global.html#sounds">sounds</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopGameSoundsMenu">stopGameSoundsMenu</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#totheMenu">totheMenu</a></li><li><a href="global.html#unmuteSounds">unmuteSounds</a></li><li><a href="global.html#winGame">winGame</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Aug 24 2025 13:06:27 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
