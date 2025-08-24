@@ -34,7 +34,7 @@ Simply open the file `docs/index.html` in your browser to view the generated doc
 ## Online Documentation
 The technical documentation is also available online via GitHub Pages:
 
-[Live documentation on GitHub Pages](https://StephanZager.github.io/El-Pollo-Loco/docs/index.html)
+[Live documentation on GitHub Pages](https://StephanZager.github.io/El-Pollo-Loco/)
 
 ## Contributing
 Pull requests and issues are welcome!
